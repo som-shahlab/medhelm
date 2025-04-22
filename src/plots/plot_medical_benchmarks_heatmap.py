@@ -22,7 +22,6 @@ parser.add_argument('--input', '-i', type=str, required=True, help='Path to the 
 parser.add_argument('--output', '-o', type=str, default='medical_benchmarks_heatmap.png', help='Path for the output image file')
 args = parser.parse_args()
 
-# Define metric ranges
 metric_ranges = {
     "MedCalc-Bench - MedCalc Acc...": [0, 1],
     "CLEAR - EM": [0, 1],
@@ -46,11 +45,14 @@ metric_ranges = {
     "MedConfInfo - EM": [0, 1],
     "MEDIQA - Accuracy": [1, 5],
     "MentalHealth - Accuracy": [1, 5],
+    "ProxySender - EM": [0, 1],
+    "PrivacyDetection - EM": [0, 1],
     "PubMedQA - EM": [0, 1],
     "EHRSQL - EHRSQLExeAcc": [0, 1],
     "BMT-Status - EM": [0, 1],
     "RaceBias - EM": [0, 1],
     "N2C2-CT - EM": [0, 1],
+    "MedHallu - EM": [0, 1],
     "HospiceReferral - EM": [0, 1],
     "MIMIC-IV Billing Code - MIM...": [0, 1],
     "ClinicReferral - EM": [0, 1],
