@@ -2,9 +2,10 @@ import re
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.colors import Normalize
 import argparse
+
+from medhelm.utils.constants import METRIC_RANGES
+
 
 """
 This script generates a heatmap of language model performance on various medical benchmarks.
@@ -19,46 +20,8 @@ The input CSV comes from copying the leaderboard into a csv file.
 # Add command-line argument parsing
 parser = argparse.ArgumentParser(description='Generate a heatmap of language model performance on medical benchmarks.')
 parser.add_argument('--input', '-i', type=str, required=True, help='Path to the input CSV file')
-parser.add_argument('--output', '-o', type=str, default='medical_benchmarks_heatmap.png', help='Path for the output image file')
+parser.add_argument('--output', '-o', type=str, default='medhelm_heatmap.png', help='Path for the output image file')
 args = parser.parse_args()
-
-metric_ranges = {
-    "MedCalc-Bench - MedCalc Acc...": [0, 1],
-    "CLEAR - EM": [0, 1],
-    "MTSamples - Accuracy": [1, 5],
-    "Medec - MedecFlagAcc": [0, 1],
-    "EHRSHOT - EM": [0, 1],
-    "HeadQA - EM": [0, 1],
-    "Medbullets - EM": [0, 1],
-    "MedAlign - Accuracy": [1, 5],
-    "ADHD-Behavior - EM": [0, 1],
-    "ADHD-MedEffects - EM": [0, 1],
-    "DischargeMe - Accuracy": [1, 5],
-    "ACI-Bench - Accuracy": [1, 5],
-    "MTSamples Procedures - Accu...": [1, 5],
-    "MIMIC-RRS - Accuracy": [1, 5],
-    "MIMIC-BHC - Accuracy": [1, 5],
-    "NoteExtract - Accuracy": [1, 5],
-    "MedicationQA - Accuracy": [1, 5],
-    "PatientInstruct - Accuracy": [1, 5],
-    "MedDialog - Accuracy": [1, 5],
-    "MedConfInfo - EM": [0, 1],
-    "MEDIQA - Accuracy": [1, 5],
-    "MentalHealth - Accuracy": [1, 5],
-    "ProxySender - EM": [0, 1],
-    "PrivacyDetection - EM": [0, 1],
-    "PubMedQA - EM": [0, 1],
-    "EHRSQL - EHRSQLExeAcc": [0, 1],
-    "BMT-Status - EM": [0, 1],
-    "RaceBias - EM": [0, 1],
-    "N2C2-CT - EM": [0, 1],
-    "MedHallu - EM": [0, 1],
-    "HospiceReferral - EM": [0, 1],
-    "MIMIC-IV Billing Code - MIM...": [0, 1],
-    "ClinicReferral - EM": [0, 1],
-    "CDI-QA - EM": [0, 1],
-    "ENT-Referral - EM": [0, 1]
-}
 
 df = pd.read_csv(args.input)
 df = df.set_index('Model')
@@ -82,13 +45,21 @@ plt.figure(figsize=(16, 10))
 
 df_norm = df[benchmark_columns].copy()
 for col in df_norm.columns:
-    min_val = metric_ranges[col][0]
-    max_val = metric_ranges[col][1]
+    min_val = METRIC_RANGES[col][0]
+    max_val = METRIC_RANGES[col][1]
     df_norm[col] = (df_norm[col] - min_val) / (max_val - min_val)
 
-ax = sns.heatmap(df_norm, annot=df[benchmark_columns].values, cmap="RdYlGn", 
-                 fmt='.2f', linewidths=.5, vmin=0, vmax=1,
-                 cbar_kws={'label': 'Normalized Score'})
+ax = sns.heatmap(
+    df_norm,
+    annot=df_norm.values,
+    cmap="RdYlGn", 
+    fmt='.2f',
+    linewidths=.5,
+    vmin=0,
+    vmax=1,
+    cbar_kws={'label': 'Normalized Score'},
+    annot_kws={"size": 7, "color": "black"}
+)
 
 ax.set_xticklabels([short_names[col] for col in benchmark_columns], rotation=45, ha='right', fontsize=9)
 

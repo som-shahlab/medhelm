@@ -1,4 +1,4 @@
-from typing import Dict, Set
+from typing import Dict, Set, List
 
 
 BENCHMARKS: Dict[str, Set[str]]= {
@@ -183,4 +183,83 @@ OPEN_ENDED_BENCHMARKS: Set[str] = {
     "dischargeme",
     "starr_patient_instructions",
     "mental_health"
+}
+
+METRIC_RANGES: Dict[str, List[int]] = {
+    "MedCalc-Bench - MedCalc Acc...": [0, 1],
+    "CLEAR - EM": [0, 1],
+    "MTSamples - Accuracy": [1, 5],
+    "Medec - MedecFlagAcc": [0, 1],
+    "EHRSHOT - EM": [0, 1],
+    "HeadQA - EM": [0, 1],
+    "Medbullets - EM": [0, 1],
+    "MedAlign - Accuracy": [1, 5],
+    "ADHD-Behavior - EM": [0, 1],
+    "ADHD-MedEffects - EM": [0, 1],
+    "DischargeMe - Accuracy": [1, 5],
+    "ACI-Bench - Accuracy": [1, 5],
+    "MTSamples Procedures - Accu...": [1, 5],
+    "MIMIC-RRS - Accuracy": [1, 5],
+    "MIMIC-BHC - Accuracy": [1, 5],
+    "NoteExtract - Accuracy": [1, 5],
+    "MedicationQA - Accuracy": [1, 5],
+    "PatientInstruct - Accuracy": [1, 5],
+    "MedDialog - Accuracy": [1, 5],
+    "MedConfInfo - EM": [0, 1],
+    "MEDIQA - Accuracy": [1, 5],
+    "MentalHealth - Accuracy": [1, 5],
+    "ProxySender - EM": [0, 1],
+    "PrivacyDetection - EM": [0, 1],
+    "PubMedQA - EM": [0, 1],
+    "EHRSQL - EHRSQLExeAcc": [0, 1],
+    "BMT-Status - EM": [0, 1],
+    "RaceBias - EM": [0, 1],
+    "N2C2-CT - EM": [0, 1],
+    "MedHallu - EM": [0, 1],
+    "HospiceReferral - EM": [0, 1],
+    "MIMIC-IV Billing Code - MIM...": [0, 1],
+    "ClinicReferral - EM": [0, 1],
+    "CDI-QA - EM": [0, 1],
+    "ENT-Referral - EM": [0, 1]
+}
+
+
+BENCHMARK_QUESTION_TYPE: Dict[str, str] = {
+    "aci_bench": "Open",
+    "chw_care_plan": "Open",
+    "clear": "Closed",
+    "dischargeme": "Open",
+    "ehr_sql": "Closed",
+    "ehrshot": "Closed",
+    "head_qa": "Closed",
+    "med_dialog": "Open",
+    "medalign": "Open",
+    "medbullets": "Closed",
+    "medcalc_bench": "Closed",
+    "medec": "Closed",
+    "medi_qa": "Open",
+    "medication_qa": "Open",
+    "mental_health": "Open",
+    "mimic_bhc": "Open",
+    "mimic_rrs": "Open",
+    "mimiciv_billing_code": "Closed",
+    "mtsamples_procedures": "Open",
+    "mtsamples_replicate": "Open",
+    "n2c2_ct_matching": "Closed",
+    "pubmed_qa": "Closed",
+    "race_based_med": "Closed",
+    "medhallu": "Closed",
+    "starr_patient_instructions": "Open",
+}
+
+MODEL_NAME_MAPPING: Dict[str, str] = {
+    "claude_3_5_sonnet_20241022": "Claude 3.5 Sonnet (20241022)",
+    "claude_3_7_sonnet_20250219": "Claude 3.7 Sonnet (20250219)",
+    "gemini_1.5_pro_001": "Gemini 1.5 Pro (001)",
+    "gemini_2.0_flash_001": "Gemini 2.0 Flash",
+    "gpt_4o_2024_05_13": "GPT-4o (2024-05-13)",
+    "gpt_4o_mini_2024_07_18": "GPT-4o mini (2024-07-18)",
+    "llama_3.3_70b_instruct": "Llama 3.3 Instruct (70B)",
+    "deepseek_r1": "DeepSeek R1",
+    "o3_mini_2025_01_31": "o3-mini (2025-01-31)"
 }

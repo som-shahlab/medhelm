@@ -4,62 +4,8 @@ import pandas as pd
 import re
 import argparse
 
-# Mapping dictionary for Benchmark renaming
-benchmark_mapping = {
-    "aci_bench": "ACIBench",
-    "chw_care_plan": "NoteExtract",
-    "clear": "CLEAR",
-    "dischargeme": "DischargeMe",
-    "ehr_sql": "EHR-SQL",
-    "ehrshot": "EHRSHOT",
-    "head_qa": "HEADQA",
-    "med_dialog": "MedDialog",
-    "medalign": "MedAlign",
-    "medbullets": "MedBullets",
-    "medcalc_bench": "MedCalcBench",
-    "medec": "Medec",
-    "medi_qa": "MediQA",
-    "medication_qa": "MedicationQA",
-    "mental_health": "MentalHealth",
-    "mimic_bhc": "MIMICBHC",
-    "mimic_rrs": "MIMICRRS",
-    "mimiciv_billing_code": "MIMICIV-BillingCode",
-    "mtsamples_procedures": "MTSamples-Procedures",
-    "mtsamples_replicate": "MTSamples",
-    "n2c2_ct_matching": "N2C2",
-    "pubmed_qa": "PubMedQA",
-    "race_based_med": "RaceBias",
-    "medhallu": "MedHallu",
-    "starr_patient_instructions": "PatientInstruct"
-}
+from medhelm.utils.constants import BENCHMARK_NAME_MAPPING, BENCHMARK_QUESTION_TYPE
 
-benchmark_to_question_type = {
-    "aci_bench": "Open",
-    "chw_care_plan": "Open",
-    "clear": "Closed",
-    "dischargeme": "Open",
-    "ehr_sql": "Closed",
-    "ehrshot": "Closed",
-    "head_qa": "Closed",
-    "med_dialog": "Open",
-    "medalign": "Open",
-    "medbullets": "Closed",
-    "medcalc_bench": "Closed",
-    "medec": "Closed",
-    "medi_qa": "Open",
-    "medication_qa": "Open",
-    "mental_health": "Open",
-    "mimic_bhc": "Open",
-    "mimic_rrs": "Open",
-    "mimiciv_billing_code": "Closed",
-    "mtsamples_procedures": "Open",
-    "mtsamples_replicate": "Open",
-    "n2c2_ct_matching": "Closed",
-    "pubmed_qa": "Closed",
-    "race_based_med": "Closed",
-    "medhallu": "Closed",
-    "starr_patient_instructions": "Open",
-}
 
 def parse_directory_name(directory):
     benchmark, sep, rest = directory.partition(':')
@@ -124,7 +70,7 @@ def generate_table(base_dir):
         row = {
             'Model': model,
             'Benchmark': benchmark,
-            'Question Type': benchmark_to_question_type.get(benchmark, 'Unknown'),
+            'Question Type': BENCHMARK_QUESTION_TYPE.get(benchmark, 'Unknown'),
             'Total Input Tokens': input_tokens,
             'Total Output Tokens': output_tokens,
             'Test Instances': test_instances,
@@ -147,7 +93,7 @@ def main():
         return
 
     # Step 2: Apply benchmark name mapping
-    table['Benchmark'] = table['Benchmark'].map(benchmark_mapping).fillna(table['Benchmark'])
+    table['Benchmark'] = table['Benchmark'].map(BENCHMARK_NAME_MAPPING).fillna(table['Benchmark'])
 
     # Step 3: Aggregate
     aggregated = table.groupby(['Model', 'Benchmark', 'Question Type'], dropna=False).agg({
