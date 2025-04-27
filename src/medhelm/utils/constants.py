@@ -250,6 +250,16 @@ BENCHMARK_QUESTION_TYPE: Dict[str, str] = {
     "race_based_med": "Closed",
     "medhallu": "Closed",
     "starr_patient_instructions": "Open",
+    "shc_bmt_med": "Closed",
+    "shc_cdi_med": "Closed",
+    "shc_conf_med": "Closed",
+    "shc_ent_med": "Closed",
+    "shc_gip_med": "Closed",
+    "shc_privacy_med": "Closed",
+    "shc_proxy_med": "Closed",
+    "shc_ptbm_med": "Closed",
+    "shc_sei_med": "Closed",
+    "shc_sequoia_med": "Closed"
 }
 
 MODEL_NAME_MAPPING: Dict[str, str] = {
