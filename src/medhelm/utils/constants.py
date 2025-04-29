@@ -96,7 +96,7 @@ BENCHMARKS: Dict[str, Set[str]]= {
 BENCHMARK_NAME_MAPPING: Dict[str, str] = {
     "medcalc_bench": "MedCalc-Bench",
     "clear": "CLEAR",
-    "mtsamples_replicate": "MTSamples Replicate",
+    "mtsamples_replicate": "MTSamples",
     "medec": "Medec",
     "ehrshot": "EHRSHOT",
     "head_qa": "HeadQA",

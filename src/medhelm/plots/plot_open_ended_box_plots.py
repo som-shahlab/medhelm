@@ -1,6 +1,6 @@
 import argparse
 import os
-from typing import Dict, List, Any, Set
+from typing import Dict, List, Any
 from tqdm import tqdm
 import json
 import numpy as np
@@ -8,66 +8,12 @@ import matplotlib.pyplot as plt
 
 
 from helm.benchmark.run_spec import RunSpec
-from helm.benchmark.adaptation.scenario_state import ScenarioState
-from helm.common.codec import from_json, to_json
+from helm.common.codec import from_json
 from helm.common.hierarchical_logger import hlog
 from helm.benchmark.metrics.metric import PerInstanceStats
 from helm.benchmark.metrics.statistic import Stat
 
-
-BENCHMARK_METRICS: Dict[str, str] = {
-    "medcalc_bench": "medcalc_bench_accuracy",
-    "clear": "exact_match",
-    "mtsamples_replicate": "mtsamples_replicate_accuracy",
-    "medec": "medec_error_flag_accuracy",
-    "ehrshot": "exact_match",
-    "head_qa": "exact_match",
-    "medbullet": "exact_match",
-    "medalign": "medalign_accuracy",
-    "shc_ptbm_med": "exact_match",
-    "shc_sei_med": "exact_match",
-    "dischargeme": "dischargeme_accuracy",
-    "aci_bench": "aci_bench_accuracy",
-    "mimic_bhc": "mimic_bhc_accuracy",
-    "mtsamples": "mtsamples_procedures_accuracy",
-    "mimic_rrs": "mimic_rrs_accuracy",
-    "chw_care_plan": "chw_care_plan_accuracy",
-    "medication_qa": "medication_qa_accuracy",
-    "starr_patient_instructions": "starr_patient_instructions_accuracy",
-    "med_dialog": "med_dialog_accuracy",
-    "shc_conf_med": "exact_match",
-    "medi_qa": "medi_qa_accuracy",
-    "mental_health": "mental_health_accuracy",
-    "pubmed_qa": "exact_match",
-    "ehr_sql": "ehr_sql_execution_accuracy",
-    "shc_bmt_med": "exact_match",
-    "race_based_med": "exact_match",
-    "medhallu": "exact_match",
-    "n2c2_ct_matching": "exact_match",
-    "shc_gip_med": "exact_match",
-    "mimiciv_billing_code": "mimiciv_billing_code_f1",
-    "shc_sequoia_med": "exact_match",
-    "shc_cdi_med": "exact_match",
-    "shc_ent_med": "exact_match",
-    "shc_privacy_med": "exact_match",
-    "shc_proxy_med": "exact_match",
-}
-
-OPEN_ENDED_BENCHMARKS: Set[str] = {
-    "aci_bench",
-    "med_dialog",
-    "medi_qa",
-    "medication_qa",
-    "mtsamples",
-    "mtsamples_replicate",
-    "medalign",
-    "chw_care_plan"
-    "mimic_rrs",
-    "mimic_bhc",
-    "dischargeme",
-    "starr_patient_instructions",
-    "mental_health"
-}
+from medhelm.utils.constants import BENCHMARK_METRICS, OPEN_ENDED_BENCHMARKS
 
 
 PER_INSTANCE_STATS_FILE_NAME = "per_instance_stats.json"

@@ -1,70 +1,98 @@
+import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
 from medhelm.utils.constants import MODEL_NAME_MAPPING
 
-# Make sure plots directory exists
-os.makedirs('./plots', exist_ok=True)
 
-# Load the data from the CSV file
-csv_file = './data/costs.csv'
-data = pd.read_csv(csv_file)
-data["Model"] = data["Model"].map(MODEL_NAME_MAPPING)
+def main(
+    costs_file: str,
+    leaderboard_file: str,
+    output_file: str,
+    category: str
+):
+    import matplotlib.pyplot as plt
+    from medhelm.utils.constants import BENCHMARKS, BENCHMARK_NAME_MAPPING
 
-# Aggregate the data by model and sum the "Cost Input Output Tokens" column
-aggregated_data = data.groupby('Model')['Cost Input Output Tokens'].sum()
+    data = pd.read_csv(costs_file)
 
-# Load the leaderboard data from the CSV file
-leaderboard_file = './data/leaderboard.csv'
-leaderboard_data = pd.read_csv(leaderboard_file)
+    # Filter benchmarks by category if specified
+    if category:
+        # Step 1: Collect all benchmark IDs under the given category
+        category_benchmarks = set()
+        if category in BENCHMARKS:
+            for subcat in BENCHMARKS[category].values():
+                category_benchmarks.update(subcat)
+        else:
+            raise ValueError(f"Category '{category}' not found in BENCHMARKS")
 
-# Calculate the mean win rate for each model
-mean_win_rate = leaderboard_data.groupby('Model')['Mean win rate'].mean()
+        # Step 2: Map to pretty names using BENCHMARK_NAME_MAPPING
+        pretty_benchmarks = {
+            BENCHMARK_NAME_MAPPING[bench]
+            for bench in category_benchmarks
+            if bench in BENCHMARK_NAME_MAPPING
+        }
+        # Step 3: Filter the data
+        data = data[data['Benchmark'].isin(pretty_benchmarks)]
+        assert len(pretty_benchmarks) == len(data["Benchmark"].unique()), f"Benchmarks for {category} don't match."
 
-# Merge the aggregated cost data with the mean win rate data
-merged_data = pd.DataFrame({
-    'Aggregated Cost': aggregated_data,
-    'Mean Win Rate': mean_win_rate
-}).dropna()
+    data["Model"] = data["Model"].map(MODEL_NAME_MAPPING)
+    aggregated_data = data.groupby('Model')['Cost Input Output Tokens'].sum()
 
-# Assign a unique color to each model
-colors = plt.cm.tab10(range(len(merged_data)))
+    leaderboard_data = pd.read_csv(leaderboard_file)
+    mean_win_rate = leaderboard_data.groupby('Model')['Mean win rate'].mean()
 
-# Add a column for colors based on the model
-merged_data['Color'] = [colors[i] for i in range(len(merged_data))]
+    merged_data = pd.DataFrame({
+        'Aggregated Cost': aggregated_data,
+        'Mean Win Rate': mean_win_rate
+    }).dropna()
 
-# Plot the data
-plt.figure(figsize=(12, 8))
+    print(merged_data)
+    
+    colors = plt.cm.tab10(range(len(merged_data)))
+    merged_data['Color'] = [colors[i] for i in range(len(merged_data))]
 
-for i, (model, row) in enumerate(merged_data.iterrows()):
-    plt.scatter(
-        row['Aggregated Cost'], 
-        row['Mean Win Rate'], 
-        color=row['Color'], 
-        edgecolors='black', 
-        s=200  # <-- Bigger circles (increase s from default ~20 to 200)
+    plt.figure(figsize=(12, 8))
+    for i, (model, row) in enumerate(merged_data.iterrows()):
+        plt.scatter(
+            row['Aggregated Cost'], 
+            row['Mean Win Rate'], 
+            color=row['Color'], 
+            edgecolors='black', 
+            s=200
+        )
+        plt.text(
+            row['Aggregated Cost'] * 1.01,
+            row['Mean Win Rate'],
+            model,
+            fontsize=10,
+            verticalalignment='center'
+        )
+
+    plt.title(f'Cost vs Mean Win Rate ({category or "all"})', fontsize=16)
+    plt.xlabel('Cost', fontsize=14)
+    plt.ylabel('Mean Win Rate', fontsize=14)
+    plt.grid(True)
+    plt.tight_layout()
+
+    plt.xlim(merged_data['Aggregated Cost'].min() * 0.9, merged_data['Aggregated Cost'].max() * 1.1)
+    plt.ylim(merged_data['Mean Win Rate'].min() * 0.9, merged_data['Mean Win Rate'].max() * 1.1)
+
+    plt.savefig(output_file)
+    print(f"Plot saved to {output_file}")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Creates plots for cost vs performance of models.')
+    parser.add_argument('--costs_file', '-c', type=str, required=True, help='Path to the costs CSV file')
+    parser.add_argument('--leaderboard_file', '-l', type=str, required=True, help='Path to the leaderboard CSV file')
+    parser.add_argument('--output_file', '-o', type=str, default='./plots/cost_vs_winrate.png', help='Path for the output image file')
+    parser.add_argument('--category', type=str, required=False, help='Path for the output image file')
+    args = parser.parse_args()
+    main(
+        args.costs_file,
+        args.leaderboard_file,
+        args.output_file,
+        args.category
     )
-    # Annotate each point with the model name slightly to the right
-    plt.text(
-        row['Aggregated Cost'] * 1.01,   # small shift to the right
-        row['Mean Win Rate'],
-        model,
-        fontsize=10,
-        verticalalignment='center'
-    )
-
-plt.title('Cost vs Mean Win Rate', fontsize=16)
-plt.xlabel('Cost', fontsize=14)
-plt.ylabel('Mean Win Rate', fontsize=14)
-plt.grid(True)
-plt.tight_layout()
-
-# Set the x and y axis limits to ensure all data appears
-plt.xlim(merged_data['Aggregated Cost'].min() * 0.9, merged_data['Aggregated Cost'].max() * 1.1)
-plt.ylim(merged_data['Mean Win Rate'].min() * 0.9, merged_data['Mean Win Rate'].max() * 1.1)
-
-# Save the scatter plot as an image
-output_scatter_plot = './plots/cost_vs_win_rate.png'
-plt.savefig(output_scatter_plot)
-plt.show()

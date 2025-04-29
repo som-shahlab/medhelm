@@ -9,3 +9,7 @@ dist/
 build/
 *.tar.gz
 *.whl
+
+.DS_Store
+
+logs/
