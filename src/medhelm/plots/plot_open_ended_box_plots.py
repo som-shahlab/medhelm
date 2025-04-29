@@ -5,6 +5,7 @@ from tqdm import tqdm
 import json
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 
 
 from helm.benchmark.run_spec import RunSpec
@@ -137,7 +138,8 @@ def generate_plots(
 
 def generate_box_plots(
     metric_data: Dict[str, Dict[str,List[float]]],
-    output_dir: str, model: str
+    output_dir: str,
+    model: str
 ):
     """Generate and save box plots for metric data."""
     if not os.path.exists(output_dir):
@@ -148,7 +150,16 @@ def generate_box_plots(
     scenarios = list(BENCHMARK_NAME_MAPPING[scenario] for scenario in metric_data[model].keys())
     
     plt.figure(figsize=(15, 8))
-    plt.boxplot(data, labels=scenarios, showfliers=False)
+    box = plt.boxplot(data, patch_artist=True, labels=scenarios, showfliers=False)
+
+    # Set a uniform color for all boxes
+    color = "#1f77b4"  # Matplotlib's default blue
+
+    for patch in box["boxes"]:
+        patch.set_facecolor(color)
+    for median in box["medians"]:
+        median.set_color("black")
+
     plt.xticks(rotation=45, ha='right')
     plt.ylabel("Metric Value")
     plt.title(f"Performance of {model} on open-ended benchmarks")
