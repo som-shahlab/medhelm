@@ -13,7 +13,7 @@ from helm.common.hierarchical_logger import hlog
 from helm.benchmark.metrics.metric import PerInstanceStats
 from helm.benchmark.metrics.statistic import Stat
 
-from medhelm.utils.constants import BENCHMARK_METRICS, OPEN_ENDED_BENCHMARKS
+from medhelm.utils.constants import BENCHMARK_METRICS, OPEN_ENDED_BENCHMARKS, BENCHMARK_NAME_MAPPING
 
 
 PER_INSTANCE_STATS_FILE_NAME = "per_instance_stats.json"
@@ -145,10 +145,11 @@ def generate_box_plots(
 
     scenarios = list(metric_data[model].keys())
     data = [metric_data[model][scenario] for scenario in scenarios]
-
+    scenarios = list(BENCHMARK_NAME_MAPPING[scenario] for scenario in metric_data[model].keys())
+    
     plt.figure(figsize=(15, 8))
     plt.boxplot(data, labels=scenarios, showfliers=False)
-    plt.xticks(rotation=90)
+    plt.xticks(rotation=45, ha='right')
     plt.ylabel("Metric Value")
     plt.title(f"Performance of {model} on open-ended benchmarks")
     plt.tight_layout()

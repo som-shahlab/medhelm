@@ -145,7 +145,7 @@ BENCHMARK_METRICS: Dict[str, str] = {
     "dischargeme": "dischargeme_accuracy",
     "aci_bench": "aci_bench_accuracy",
     "mimic_bhc": "mimic_bhc_accuracy",
-    "mtsamples": "mtsamples_procedures_accuracy",
+    "mtsamples_procedures": "mtsamples_procedures_accuracy",
     "mimic_rrs": "mimic_rrs_accuracy",
     "chw_care_plan": "chw_care_plan_accuracy",
     "medication_qa": "medication_qa_accuracy",
@@ -174,7 +174,7 @@ OPEN_ENDED_BENCHMARKS: Set[str] = {
     "med_dialog",
     "medi_qa",
     "medication_qa",
-    "mtsamples",
+    "mtsamples_procedures",
     "mtsamples_replicate",
     "medalign",
     "chw_care_plan"
