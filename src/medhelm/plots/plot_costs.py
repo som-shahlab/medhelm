@@ -71,7 +71,7 @@ def main(
         )
 
     plt.title(f'Cost vs Mean Win Rate ({category or "all"})', fontsize=16)
-    plt.xlabel('Cost', fontsize=14)
+    plt.xlabel('Cost (USD)', fontsize=14)
     plt.ylabel('Mean Win Rate', fontsize=14)
     plt.grid(True)
     plt.tight_layout()

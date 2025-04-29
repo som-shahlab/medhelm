@@ -14,7 +14,12 @@ from helm.common.hierarchical_logger import hlog
 from helm.benchmark.metrics.metric import PerInstanceStats
 from helm.benchmark.metrics.statistic import Stat
 
-from medhelm.utils.constants import BENCHMARK_METRICS, OPEN_ENDED_BENCHMARKS, BENCHMARK_NAME_MAPPING
+from medhelm.utils.constants import (
+    BENCHMARK_METRICS, 
+    OPEN_ENDED_BENCHMARKS, 
+    BENCHMARK_NAME_MAPPING, 
+    MODEL_NAME_MAPPING
+)
 
 
 PER_INSTANCE_STATS_FILE_NAME = "per_instance_stats.json"
@@ -113,7 +118,7 @@ def generate_plots(
         if scenario_name not in OPEN_ENDED_BENCHMARKS:
             continue
         run_spec = read_run_spec(run_spec_path)
-        model = run_spec.adapter_spec.model.split("/")[-1]
+        model = run_spec.adapter_spec.model.split("/")[-1].replace("-", "_")
         if model not in metric_data:
             metric_data[model] = {}
         
@@ -163,7 +168,7 @@ def generate_box_plots(
     plt.xticks(rotation=45, ha='right')
     plt.ylabel("Jury Score")
     plt.xlabel("Benchmark")
-    plt.title(f"Performance of {model} on open-ended benchmarks")
+    plt.title(f"Performance on open-ended benchmarks ({MODEL_NAME_MAPPING[model]})")
     plt.tight_layout()
     plot_path = os.path.join(output_dir, f"{model}_box_plot.png")
     plt.savefig(plot_path)
