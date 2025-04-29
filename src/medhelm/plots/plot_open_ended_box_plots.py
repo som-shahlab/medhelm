@@ -161,7 +161,8 @@ def generate_box_plots(
         median.set_color("black")
 
     plt.xticks(rotation=45, ha='right')
-    plt.ylabel("Metric Value")
+    plt.ylabel("Jury Score")
+    plt.xlabel("Benchmark")
     plt.title(f"Performance of {model} on open-ended benchmarks")
     plt.tight_layout()
     plot_path = os.path.join(output_dir, f"{model}_box_plot.png")
