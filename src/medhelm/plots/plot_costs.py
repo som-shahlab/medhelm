@@ -1,9 +1,8 @@
 import argparse
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
 
-from medhelm.utils.constants import MODEL_NAME_MAPPING
+from medhelm.utils.constants import BENCHMARKS, BENCHMARK_NAME_MAPPING,  MODEL_NAME_MAPPING
 
 
 def main(
@@ -12,9 +11,6 @@ def main(
     output_file: str,
     category: str
 ):
-    import matplotlib.pyplot as plt
-    from medhelm.utils.constants import BENCHMARKS, BENCHMARK_NAME_MAPPING
-
     data = pd.read_csv(costs_file)
 
     # Filter benchmarks by category if specified
@@ -49,7 +45,7 @@ def main(
     }).dropna()
 
     print(merged_data)
-    
+
     colors = plt.cm.tab10(range(len(merged_data)))
     merged_data['Color'] = [colors[i] for i in range(len(merged_data))]
 
@@ -60,20 +56,18 @@ def main(
             row['Mean Win Rate'], 
             color=row['Color'], 
             edgecolors='black', 
-            s=200
-        )
-        plt.text(
-            row['Aggregated Cost'] * 1.01,
-            row['Mean Win Rate'],
-            model,
-            fontsize=10,
-            verticalalignment='center'
+            s=200,
+            label=model  # Label for traditional legend
         )
 
-    plt.title(f'Cost vs Mean Win Rate ({category or "all"})', fontsize=16)
-    plt.xlabel('Cost (USD)', fontsize=14)
+    title = 'Cost vs Mean Win Rate'
+    if category:
+        title = f'{title} ({category})'
+    plt.title(title, fontsize=16)
+    plt.xlabel('Total Cost (USD)', fontsize=14)
     plt.ylabel('Mean Win Rate', fontsize=14)
     plt.grid(True)
+    plt.legend(title="Model", fontsize=10, title_fontsize=12, loc='best')  # Traditional legend
     plt.tight_layout()
 
     plt.xlim(merged_data['Aggregated Cost'].min() * 0.9, merged_data['Aggregated Cost'].max() * 1.1)
@@ -88,7 +82,7 @@ if __name__ == "__main__":
     parser.add_argument('--costs_file', '-c', type=str, required=True, help='Path to the costs CSV file')
     parser.add_argument('--leaderboard_file', '-l', type=str, required=True, help='Path to the leaderboard CSV file')
     parser.add_argument('--output_file', '-o', type=str, default='./plots/cost_vs_winrate.png', help='Path for the output image file')
-    parser.add_argument('--category', type=str, required=False, help='Path for the output image file')
+    parser.add_argument('--category', type=str, required=False, help='Benchmark category to filter by')
     args = parser.parse_args()
     main(
         args.costs_file,
