@@ -177,7 +177,7 @@ OPEN_ENDED_BENCHMARKS: Set[str] = {
     "mtsamples_procedures",
     "mtsamples_replicate",
     "medalign",
-    "chw_care_plan"
+    "chw_care_plan",
     "mimic_rrs",
     "mimic_bhc",
     "dischargeme",

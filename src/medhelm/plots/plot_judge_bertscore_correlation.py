@@ -16,8 +16,7 @@ from helm.benchmark.metrics.statistic import Stat
 from medhelm.utils.constants import (
     BENCHMARK_METRICS, 
     OPEN_ENDED_BENCHMARKS, 
-    BENCHMARK_NAME_MAPPING, 
-    MODEL_NAME_MAPPING
+    BENCHMARK_NAME_MAPPING 
 )
 
 
@@ -25,7 +24,7 @@ PER_INSTANCE_STATS_FILE_NAME = "per_instance_stats.json"
 SCENARIO_FILE_NAME = "scenario.json"
 RUN_SPEC_FILE_NAME = "run_spec.json"
 TEST = "test"
-MAIN_METRIC_RANGE = [1, 5]
+BERTSCORE = "BERTScore-F"
 
 
 def read_per_instance_stats(per_instance_stats_path: str) -> List[PerInstanceStats]:
@@ -49,26 +48,27 @@ def read_scenario(scenario_path: str) -> Dict[str, Any]:
 
 
 def get_metric_stats(
-    per_instance_stats_list: List[PerInstanceStats], main_metric_name: str
+    per_instance_stats_list: List[PerInstanceStats], 
+    metric_name: str
 ) -> List[Stat]:
     main_metric_stats: List[Stat] = []
     for per_instance_stats in per_instance_stats_list:
         for stat in per_instance_stats.stats:
-            if stat.name.name == main_metric_name and stat.name.split == TEST:
+            if stat.name.name == metric_name and stat.name.split == TEST:
                 main_metric_stats.append(stat)
     main_metric_stats.sort(key=lambda x: x.sum)
     return main_metric_stats
 
 def compute_statistics(
-    main_metric_stats: List[float]
+    main_metric_stats: List[Stat]
 ) -> Dict[str, float]:
-    numpy_array = np.array(main_metric_stats)
+    numpy_array = np.array([stat.sum for stat in main_metric_stats])
     mean= np.mean(numpy_array)
     median = np.median(numpy_array)
     stddev = np.std(numpy_array)
     variance = np.var(numpy_array)
-    minimum = main_metric_stats[0]
-    maximum = main_metric_stats[-1]
+    minimum = main_metric_stats[0].sum
+    maximum = main_metric_stats[-1].sum
     return {
         "mean": mean,
         "median": median,
@@ -79,12 +79,56 @@ def compute_statistics(
     }
         
 
+def generate_correlation_plots(
+    metric_data: Dict[str, Dict[str, Dict[str, List[float]]]],
+    output_dir: str
+):
+    """Generate and save correlation plots for each benchmark."""
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
+    for scenario_name in BENCHMARK_NAME_MAPPING.keys():
+        if scenario_name not in metric_data:
+            continue
+
+        models = list(metric_data[scenario_name].keys())
+        main_metric_averages = []
+        bertscore_averages = []
+
+        for model in models:
+            main_metric_values = metric_data[scenario_name][model]["main_metric"]
+            bertscore_values = metric_data[scenario_name][model]["bertscore"]
+
+            if main_metric_values and bertscore_values:
+                # Normalize main metric values based on the range
+                metric_range = [1, 5]
+                min_val, max_val = metric_range
+                normalized_main_metric = [
+                    (value - min_val) / (max_val - min_val) for value in main_metric_values
+                ]
+                main_metric_averages.append(np.mean(normalized_main_metric))
+                bertscore_averages.append(np.mean(bertscore_values))
+
+        if main_metric_averages and bertscore_averages:
+            plt.figure(figsize=(10, 6))
+            plt.scatter(main_metric_averages, bertscore_averages, color="#1f77b4", alpha=0.7)
+            plt.xlabel("Normalized Average Jury Score")
+            plt.ylabel("Average BERTScore-F")
+            plt.title(f"Jury Score vs BERTScore-F ({BENCHMARK_NAME_MAPPING[scenario_name]})")
+            plt.grid(True)
+            plt.xlim(0, 1)  # Normalized x-axis range
+            plt.ylim(0, 1)  # Set y-axis range
+            plot_path = os.path.join(output_dir, f"correlation_plot_{scenario_name}.png")
+            plt.savefig(plot_path)
+            hlog(f"Correlation plot saved to {plot_path}")
+            plt.close()
+
+
 def generate_plots(
     runs_path: str,
     output_dir: str
 ) -> None:
-    metric_data_main: Dict[str, Dict[str, List[float]]] = {}
-    metric_data_secondary: Dict[str, Dict[str, List[float]]] = {}
+    metric_data: Dict[str, Dict[str, Dict[str, List[float]]]] = {}
     suite_names = [
         p for p in os.listdir(runs_path)
         if os.path.isdir(os.path.join(runs_path, p))
@@ -120,94 +164,25 @@ def generate_plots(
             continue
         run_spec = read_run_spec(run_spec_path)
         model = run_spec.adapter_spec.model.split("/")[-1].replace("-", "_")
-        if model not in metric_data_main:
-            metric_data_main[model] = {}
-        if model not in metric_data_secondary:
-            metric_data_secondary[model] = {}
+        if scenario_name not in metric_data:
+            metric_data[scenario_name] = {}
+        if model not in metric_data[scenario_name]:
+            metric_data[scenario_name][model] = {"main_metric": [], "bertscore": []}
         
-        main_metric_name = BENCHMARK_METRICS.get(scenario_name)
-        secondary_metric_name = "BERTScore-F"
+        metric_name = BENCHMARK_METRICS.get(scenario_name)
 
-        if not main_metric_name:
+        if not metric_name:
             hlog(f"WARNING: No benchmark metric defined for scenario {scenario_name}, skipping")
             continue
 
         per_instance_stats_list = read_per_instance_stats(per_instance_stats_path)
-        main_metric_stats = get_metric_stats(per_instance_stats_list, main_metric_name)
-        secondary_metric_stats = get_metric_stats(per_instance_stats_list, secondary_metric_name)
+        main_metric_stats = get_metric_stats(per_instance_stats_list, metric_name)
+        bertscore_metric_stats = get_metric_stats(per_instance_stats_list, BERTSCORE)
 
-        if scenario_name not in metric_data_main[model]:
-            metric_data_main[model][scenario_name] = []
-        if scenario_name not in metric_data_secondary[model]:
-            metric_data_secondary[model][scenario_name] = []
-        min_val, max_val = MAIN_METRIC_RANGE
-        metric_data_main[model][scenario_name].extend([(stat.sum - min_val) / (max_val - min_val) for stat in main_metric_stats])
-        metric_data_secondary[model][scenario_name].extend([stat.sum for stat in secondary_metric_stats])
-        print(f"Metric statistics for {model},{scenario_name}:")
-        print(compute_statistics(metric_data_main[model][scenario_name]))
-        print(f"Secondary metric statistics for {model},{scenario_name}:")
-        print(compute_statistics(metric_data_secondary[model][scenario_name]))
+        metric_data[scenario_name][model]["main_metric"].extend([stat.sum for stat in main_metric_stats])
+        metric_data[scenario_name][model]["bertscore"].extend([stat.sum for stat in bertscore_metric_stats])
 
-    for model in metric_data_main.keys():
-        generate_box_plots(metric_data_main, metric_data_secondary, output_dir, model)
-
-
-def generate_box_plots(
-    metric_data_main: Dict[str, Dict[str, List[float]]],
-    metric_data_secondary: Dict[str, Dict[str, List[float]]],
-    output_dir: str,
-    model: str
-):
-    """Generate and save box plots for both main and secondary metrics in the same figure."""
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-
-    scenarios = list(metric_data_main[model].keys())
-    data_main = [metric_data_main[model][scenario] for scenario in scenarios]
-    data_secondary = [metric_data_secondary[model][scenario] for scenario in scenarios]
-    scenario_labels = [BENCHMARK_NAME_MAPPING[scenario] for scenario in scenarios]
-
-    # Combine data for both metrics
-    combined_data = []
-    positions = []
-    for i, (main_data, secondary_data) in enumerate(zip(data_main, data_secondary)):
-        combined_data.append(main_data)
-        combined_data.append(secondary_data)
-        positions.extend([2 * i + 1, 2 * i + 1.7])  # Reduce the distance between main and secondary metrics
-
-    # Create the plot
-    plt.figure(figsize=(15, 8))
-    # box = plt.boxplot(combined_data, patch_artist=True, positions=positions, showfliers=False)
-    box = plt.boxplot(combined_data, patch_artist=True, positions=positions, showfliers=True)
-
-    # Set alternating colors for the two metrics
-    colors = ["#1f77b4", "#ff7f0e"]  # Blue for main metric, orange for secondary metric
-    for i, patch in enumerate(box["boxes"]):
-        patch.set_facecolor(colors[i % 2])
-    for median in box["medians"]:
-        median.set_color("black")
-
-    # Adjust x-ticks to be centered between the two box plots for each benchmark
-    x_ticks = [1.35 + 2 * i for i in range(len(scenarios))]  # Adjust x-tick positions to match the new spacing
-    plt.xticks(x_ticks, scenario_labels, rotation=45, ha='right')
-
-    # Add a legend for the colors
-    plt.legend(
-        handles=[
-            plt.Line2D([0], [0], color="#1f77b4", lw=4, label="Jury Score"),
-            plt.Line2D([0], [0], color="#ff7f0e", lw=4, label="BERTScore-F"),
-        ],
-        loc="lower right",
-    )
-
-    plt.ylabel("Normalized Score")
-    plt.xlabel("Benchmark")
-    plt.title(f"Performance on open-ended benchmarks ({MODEL_NAME_MAPPING[model]})")
-    plt.tight_layout()
-    plot_path = os.path.join(output_dir, f"box_plot_{model}.png")
-    plt.savefig(plot_path)
-    hlog(f"Box plot saved to {plot_path}")
-    plt.close()
+    generate_correlation_plots(metric_data, output_dir)
 
 
 def main():
