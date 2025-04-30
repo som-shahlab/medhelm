@@ -1,0 +1,133 @@
+username,specialty,team,entry_id,instance_id,dataset_name,model_key,user_label,accuracy,completeness,clarity,llm_accuracy,llm_completeness,llm_clarity
+Akshay Swaminathan,Medical student,Team 9,81,id148,aci_bench,google_gemini-1.5-pro-001,Model A,5,4,5,4.333333333333333,3.6666666666666665,4.666666666666667
+Akshay Swaminathan,Medical student,Team 9,83,id150,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,3,5,5,4.333333333333333,4.333333333333333,5.0
+Akshay Swaminathan,Medical student,Team 9,93,id154,aci_bench,openai_gpt-4o-mini-2024-07-18,Model A,5,3,5,4.666666666666667,4.666666666666667,5.0
+Akshay Swaminathan,Medical student,Team 9,66,id156,aci_bench,anthropic_claude-3-5-sonnet-20241022,Model A,5,4,5,5.0,4.666666666666667,5.0
+Akshay Swaminathan,Medical student,Team 9,77,id158,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,5,4,5,4.666666666666667,4.666666666666667,5.0
+Akshay Swaminathan,Medical student,Team 9,79,id159,aci_bench,google_gemini-2.0-flash-001,Model A,5,4,5,4.333333333333333,4.333333333333333,5.0
+Akshay Swaminathan,Medical student,Team 9,69,id162,aci_bench,anthropic_claude-3-5-sonnet-20241022,Model A,5,5,5,4.0,4.666666666666667,5.0
+Akshay Swaminathan,Medical student,Team 9,96,id167,aci_bench,meta_llama-3.3-70b-instruct,Model A,5,3,5,4.333333333333333,3.6666666666666665,4.666666666666667
+Akshay Swaminathan,Medical student,Team 9,97,id168,aci_bench,meta_llama-3.3-70b-instruct,Model A,5,4,4,4.0,3.6666666666666665,4.666666666666667
+Michael Gensheimer,Radiation Oncology,Team 8,99,id111,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,5,5,5,4.333333333333333,4.0,5.0
+Michael Gensheimer,Radiation Oncology,Team 8,87,id114,aci_bench,meta_llama-3.3-70b-instruct,Model A,5,5,5,4.0,3.6666666666666665,4.666666666666667
+Michael Gensheimer,Radiation Oncology,Team 8,85,id120,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,5,5,5,4.333333333333333,4.333333333333333,5.0
+Michael Gensheimer,Radiation Oncology,Team 8,95,id122,aci_bench,google_gemini-1.5-pro-001,Model A,5,5,5,4.333333333333333,4.0,5.0
+Michael Gensheimer,Radiation Oncology,Team 8,73,id123,aci_bench,openai_gpt-4o-mini-2024-07-18,Model A,5,5,5,4.666666666666667,4.666666666666667,5.0
+Michael Gensheimer,Radiation Oncology,Team 8,92,id125,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,4,5,4,3.6666666666666665,3.6666666666666665,4.666666666666667
+Michael Gensheimer,Radiation Oncology,Team 8,70,id142,aci_bench,openai_gpt-4o-2024-05-13,Model A,5,5,5,5.0,4.666666666666667,5.0
+Michael Gensheimer,Radiation Oncology,Team 8,88,id143,aci_bench,openai_gpt-4o-2024-05-13,Model A,5,5,5,4.333333333333333,4.333333333333333,5.0
+Michael Gensheimer,Radiation Oncology,Team 8,71,id146,aci_bench,meta_llama-3.3-70b-instruct,Model A,5,5,4,4.0,3.6666666666666665,4.666666666666667
+Fran√ßois Grolleau,Anesthesiology,Team 7,45,74,medi_qa,openai_gpt-4o-mini-2024-07-18,Model A,4,3,5,4.333333333333333,4.0,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,36,85,medi_qa,google_gemini-2.0-flash-001,Model A,4,3,5,4.666666666666667,3.6666666666666665,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,62,86,medi_qa,google_gemini-2.0-flash-001,Model A,4,5,4,5.0,5.0,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,38,92,medi_qa,google_gemini-1.5-pro-001,Model A,3,3,5,4.0,2.6666666666666665,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,47,93,medi_qa,google_gemini-2.0-flash-001,Model A,5,5,4,5.0,5.0,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,30,99,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,3,3,4,5.0,4.666666666666667,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,90,id100,aci_bench,google_gemini-1.5-pro-001,Model A,4,3,5,5.0,4.333333333333333,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,89,id104,aci_bench,anthropic_claude-3-5-sonnet-20241022,Model A,4,3,5,4.0,4.0,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,72,id108,aci_bench,google_gemini-1.5-pro-001,Model A,3,3,4,4.666666666666667,4.0,5.0
+Fran√ßois Grolleau,Anesthesiology,Team 7,91,id109,aci_bench,anthropic_claude-3-5-sonnet-20241022,Model A,4,3,5,4.333333333333333,4.333333333333333,5.0
+Jonathan Chen,Internal Medicine,Team 1,4,id10,mtsamples_replicate,anthropic_claude-3-7-sonnet-20250219,Model A,2,5,4,4.0,4.333333333333333,5.0
+Jonathan Chen,Internal Medicine,Team 1,3,id12,mtsamples_replicate,anthropic_claude-3-7-sonnet-20250219,Model A,4,4,3,4.666666666666667,4.666666666666667,5.0
+Jonathan Chen,Internal Medicine,Team 1,25,id16,mtsamples_replicate,anthropic_claude-3-5-sonnet-20241022,Model A,5,5,3,3.6666666666666665,4.333333333333333,5.0
+Jonathan Chen,Internal Medicine,Team 1,14,id18,mtsamples_replicate,anthropic_claude-3-7-sonnet-20250219,Model A,4,5,4,3.6666666666666665,4.333333333333333,5.0
+Jonathan Chen,Internal Medicine,Team 1,2,id34,mtsamples_replicate,google_gemini-1.5-pro-001,Model A,4,4,3,3.3333333333333335,3.6666666666666665,4.666666666666667
+Mohana Roy,Oncology,Team 10,74,id174,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,4,5,5,5.0,4.666666666666667,5.0
+Mohana Roy,Oncology,Team 10,84,id185,aci_bench,google_gemini-2.0-flash-001,Model A,4,4,4,4.333333333333333,4.333333333333333,5.0
+Mohana Roy,Oncology,Team 10,68,id82,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,4,3,5,4.0,4.666666666666667,5.0
+Mohana Roy,Oncology,Team 10,98,id87,aci_bench,google_gemini-2.0-flash-001,Model A,4,4,4,5.0,4.666666666666667,5.0
+Mohana Roy,Oncology,Team 10,67,id88,aci_bench,openai_gpt-4o-mini-2024-07-18,Model A,5,4,5,4.333333333333333,4.333333333333333,5.0
+Mohana Roy,Oncology,Team 10,75,id89,aci_bench,google_gemini-2.0-flash-001,Model A,4,5,4,4.666666666666667,4.333333333333333,5.0
+Mohana Roy,Oncology,Team 10,86,id90,aci_bench,openai_gpt-4o-2024-05-13,Model A,4,5,5,4.333333333333333,3.6666666666666665,4.666666666666667
+Mohana Roy,Oncology,Team 10,94,id93,aci_bench,openai_gpt-4o-mini-2024-07-18,Model A,5,4,5,4.333333333333333,4.0,5.0
+Mohana Roy,Oncology,Team 10,80,id96,aci_bench,meta_llama-3.3-70b-instruct,Model A,3,4,5,4.0,3.3333333333333335,4.0
+Jenelle Jindal,Neurology,Team 4,34,105,medi_qa,meta_llama-3.3-70b-instruct,Model A,5,5,5,4.666666666666667,5.0,5.0
+Jenelle Jindal,Neurology,Team 4,43,13,medi_qa,meta_llama-3.3-70b-instruct,Model A,5,5,5,4.333333333333333,4.0,5.0
+Jenelle Jindal,Neurology,Team 4,46,139,medi_qa,google_gemini-1.5-pro-001,Model A,5,5,5,5.0,5.0,5.0
+Jenelle Jindal,Neurology,Team 4,56,144,medi_qa,meta_llama-3.3-70b-instruct,Model A,5,5,5,5.0,5.0,5.0
+Jenelle Jindal,Neurology,Team 4,40,147,medi_qa,openai_gpt-4o-2024-05-13,Model A,5,5,5,5.0,4.333333333333333,5.0
+Jenelle Jindal,Neurology,Team 4,63,15,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,5,5,5,5.0,4.333333333333333,5.0
+Jenelle Jindal,Neurology,Team 4,41,16,medi_qa,openai_gpt-4o-mini-2024-07-18,Model A,5,5,5,4.666666666666667,3.6666666666666665,5.0
+Shreya Shah,Internal Medicine - Primary Care,Team 9,81,id148,aci_bench,google_gemini-1.5-pro-001,Model A,5,5,5,4.333333333333333,3.6666666666666665,4.666666666666667
+Shreya Shah,Internal Medicine - Primary Care,Team 9,83,id150,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,5,5,5,4.333333333333333,4.333333333333333,5.0
+Shreya Shah,Internal Medicine - Primary Care,Team 9,93,id154,aci_bench,openai_gpt-4o-mini-2024-07-18,Model A,5,5,2,4.666666666666667,4.666666666666667,5.0
+Shreya Shah,Internal Medicine - Primary Care,Team 9,66,id156,aci_bench,anthropic_claude-3-5-sonnet-20241022,Model A,5,5,5,5.0,4.666666666666667,5.0
+Shreya Shah,Internal Medicine - Primary Care,Team 9,77,id158,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,5,5,2,4.666666666666667,4.666666666666667,5.0
+Shreya Shah,Internal Medicine - Primary Care,Team 9,79,id159,aci_bench,google_gemini-2.0-flash-001,Model A,5,5,5,4.333333333333333,4.333333333333333,5.0
+Shreya Shah,Internal Medicine - Primary Care,Team 9,69,id162,aci_bench,anthropic_claude-3-5-sonnet-20241022,Model A,4,4,2,4.0,4.666666666666667,5.0
+Shreya Shah,Internal Medicine - Primary Care,Team 9,96,id167,aci_bench,meta_llama-3.3-70b-instruct,Model A,5,5,4,4.333333333333333,3.6666666666666665,4.666666666666667
+Shreya Shah,Internal Medicine - Primary Care,Team 9,97,id168,aci_bench,meta_llama-3.3-70b-instruct,Model A,1,1,1,4.0,3.6666666666666665,4.666666666666667
+Philip Chung,Anesthesiology,Team 6,60,28,medi_qa,anthropic_claude-3-5-sonnet-20241022,Model A,5,4,5,5.0,4.0,5.0
+Philip Chung,Anesthesiology,Team 6,52,32,medi_qa,google_gemini-1.5-pro-001,Model A,5,5,5,4.0,3.0,5.0
+Philip Chung,Anesthesiology,Team 6,59,39,medi_qa,google_gemini-2.0-flash-001,Model A,5,5,4,4.666666666666667,5.0,5.0
+Philip Chung,Anesthesiology,Team 6,64,57,medi_qa,google_gemini-1.5-pro-001,Model A,5,1,4,2.6666666666666665,1.3333333333333333,4.0
+Philip Chung,Anesthesiology,Team 6,58,60,medi_qa,openai_gpt-4o-2024-05-13,Model A,5,3,5,4.333333333333333,4.0,5.0
+Philip Chung,Anesthesiology,Team 6,48,73,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,5,5,5,5.0,5.0,5.0
+Dong-han Yao,Emergency Medicine,Team 3,23,id53,mtsamples_replicate,google_gemini-1.5-pro-001,Model A,5,4,5,4.333333333333333,4.0,4.666666666666667
+Dong-han Yao,Emergency Medicine,Team 3,13,id54,mtsamples_replicate,anthropic_claude-3-7-sonnet-20250219,Model A,4,5,5,4.666666666666667,4.333333333333333,5.0
+Dong-han Yao,Emergency Medicine,Team 3,17,id58,mtsamples_replicate,openai_gpt-4o-mini-2024-07-18,Model A,4,4,4,4.0,4.0,4.666666666666667
+Dong-han Yao,Emergency Medicine,Team 3,9,id66,mtsamples_replicate,meta_llama-3.3-70b-instruct,Model A,5,4,4,4.666666666666667,4.333333333333333,4.666666666666667
+Dong-han Yao,Emergency Medicine,Team 3,29,id7,mtsamples_replicate,anthropic_claude-3-5-sonnet-20241022,Model A,3,2,1,4.666666666666667,5.0,5.0
+Aydin Zahedivash,Pediatrics and Clinical Informatics,Team 2,20,id35,mtsamples_replicate,meta_llama-3.3-70b-instruct,Model A,4,5,3,3.3333333333333335,3.6666666666666665,4.333333333333333
+Aydin Zahedivash,Pediatrics and Clinical Informatics,Team 2,21,id39,mtsamples_replicate,anthropic_claude-3-7-sonnet-20250219,Model A,4,5,5,4.333333333333333,4.666666666666667,5.0
+Aydin Zahedivash,Pediatrics and Clinical Informatics,Team 2,7,id4,mtsamples_replicate,openai_gpt-4o-mini-2024-07-18,Model A,2,2,3,4.666666666666667,5.0,5.0
+Aydin Zahedivash,Pediatrics and Clinical Informatics,Team 2,26,id42,mtsamples_replicate,meta_llama-3.3-70b-instruct,Model A,4,4,4,3.6666666666666665,3.3333333333333335,4.666666666666667
+Aydin Zahedivash,Pediatrics and Clinical Informatics,Team 2,15,id44,mtsamples_replicate,openai_gpt-4o-mini-2024-07-18,Model A,2,2,4,4.666666666666667,4.333333333333333,4.666666666666667
+Aydin Zahedivash,Pediatrics and Clinical Informatics,Team 2,27,id47,mtsamples_replicate,google_gemini-2.0-flash-001,Model A,4,4,2,4.0,4.0,4.333333333333333
+Aydin Zahedivash,Pediatrics and Clinical Informatics,Team 2,19,id5,mtsamples_replicate,openai_gpt-4o-mini-2024-07-18,Model A,2,2,3,4.666666666666667,5.0,5.0
+Aydin Zahedivash,Pediatrics and Clinical Informatics,Team 2,28,id50,mtsamples_replicate,google_gemini-1.5-pro-001,Model A,4,3,4,3.6666666666666665,3.6666666666666665,4.666666666666667
+Dev Dash,Emergency Medicine,Team 4,34,105,medi_qa,meta_llama-3.3-70b-instruct,Model A,4,3,4,4.666666666666667,5.0,5.0
+Dev Dash,Emergency Medicine,Team 4,43,13,medi_qa,meta_llama-3.3-70b-instruct,Model A,5,4,5,4.333333333333333,4.0,5.0
+Dev Dash,Emergency Medicine,Team 4,46,139,medi_qa,google_gemini-1.5-pro-001,Model A,4,2,4,5.0,5.0,5.0
+Dev Dash,Emergency Medicine,Team 4,56,144,medi_qa,meta_llama-3.3-70b-instruct,Model A,5,4,5,5.0,5.0,5.0
+Dev Dash,Emergency Medicine,Team 4,40,147,medi_qa,openai_gpt-4o-2024-05-13,Model A,4,5,5,5.0,4.333333333333333,5.0
+Dev Dash,Emergency Medicine,Team 4,63,15,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,3,4,3,5.0,4.333333333333333,5.0
+Dev Dash,Emergency Medicine,Team 4,41,16,medi_qa,openai_gpt-4o-mini-2024-07-18,Model A,4,3,5,4.666666666666667,3.6666666666666665,5.0
+Shivam Vedak,Internal Medicine,Team 5,51,167,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,5,4,5,5.0,4.333333333333333,5.0
+Shivam Vedak,Internal Medicine,Team 5,37,185,medi_qa,google_gemini-2.0-flash-001,Model A,5,4,5,5.0,4.333333333333333,5.0
+Shivam Vedak,Internal Medicine,Team 5,57,187,medi_qa,google_gemini-1.5-pro-001,Model A,4,3,4,4.666666666666667,3.3333333333333335,5.0
+Shivam Vedak,Internal Medicine,Team 5,61,19,medi_qa,google_gemini-2.0-flash-001,Model A,5,5,5,5.0,5.0,5.0
+Shivam Vedak,Internal Medicine,Team 5,31,23,medi_qa,google_gemini-2.0-flash-001,Model A,5,5,5,4.333333333333333,5.0,5.0
+Shivam Vedak,Internal Medicine,Team 5,54,171,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,5,4,5,4.666666666666667,3.6666666666666665,5.0
+Ethan Goh,Internal Medicine,Team 5,51,167,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,4,4,4,5.0,4.333333333333333,5.0
+Ethan Goh,Internal Medicine,Team 5,54,171,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,4,4,3,4.666666666666667,3.6666666666666665,5.0
+Ethan Goh,Internal Medicine,Team 5,37,185,medi_qa,google_gemini-2.0-flash-001,Model A,4,4,4,5.0,4.333333333333333,5.0
+Ethan Goh,Internal Medicine,Team 5,57,187,medi_qa,google_gemini-1.5-pro-001,Model A,4,3,2,4.666666666666667,3.3333333333333335,5.0
+Ethan Goh,Internal Medicine,Team 5,61,19,medi_qa,google_gemini-2.0-flash-001,Model A,4,3,4,5.0,5.0,5.0
+Ethan Goh,Internal Medicine,Team 5,31,23,medi_qa,google_gemini-2.0-flash-001,Model A,3,3,3,4.333333333333333,5.0,5.0
+Sneha Jain,Cardiology,Team 2,20,id35,mtsamples_replicate,meta_llama-3.3-70b-instruct,Model A,4,5,5,3.3333333333333335,3.6666666666666665,4.333333333333333
+Sneha Jain,Cardiology,Team 2,21,id39,mtsamples_replicate,anthropic_claude-3-7-sonnet-20250219,Model A,4,5,5,4.333333333333333,4.666666666666667,5.0
+Sneha Jain,Cardiology,Team 2,7,id4,mtsamples_replicate,openai_gpt-4o-mini-2024-07-18,Model A,4,5,5,4.666666666666667,5.0,5.0
+Sneha Jain,Cardiology,Team 2,26,id42,mtsamples_replicate,meta_llama-3.3-70b-instruct,Model A,4,5,5,3.6666666666666665,3.3333333333333335,4.666666666666667
+Sneha Jain,Cardiology,Team 2,15,id44,mtsamples_replicate,openai_gpt-4o-mini-2024-07-18,Model A,3,4,5,4.666666666666667,4.333333333333333,4.666666666666667
+Sneha Jain,Cardiology,Team 2,27,id47,mtsamples_replicate,google_gemini-2.0-flash-001,Model A,4,3,4,4.0,4.0,4.333333333333333
+Sneha Jain,Cardiology,Team 2,19,id5,mtsamples_replicate,openai_gpt-4o-mini-2024-07-18,Model A,4,5,5,4.666666666666667,5.0,5.0
+Sneha Jain,Cardiology,Team 2,28,id50,mtsamples_replicate,google_gemini-1.5-pro-001,Model A,4,5,5,3.6666666666666665,3.6666666666666665,4.666666666666667
+Lance Downing,Internal Medicine,Team 8,99,id111,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,5,4,4,4.333333333333333,4.0,5.0
+Lance Downing,Internal Medicine,Team 8,87,id114,aci_bench,meta_llama-3.3-70b-instruct,Model A,4,4,4,4.0,3.6666666666666665,4.666666666666667
+Lance Downing,Internal Medicine,Team 8,85,id120,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,3,3,4,4.333333333333333,4.333333333333333,5.0
+Lance Downing,Internal Medicine,Team 8,95,id122,aci_bench,google_gemini-1.5-pro-001,Model A,5,5,5,4.333333333333333,4.0,5.0
+Lance Downing,Internal Medicine,Team 8,73,id123,aci_bench,openai_gpt-4o-mini-2024-07-18,Model A,4,4,4,4.666666666666667,4.666666666666667,5.0
+Lance Downing,Internal Medicine,Team 8,92,id125,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,4,4,4,3.6666666666666665,3.6666666666666665,4.666666666666667
+Lance Downing,Internal Medicine,Team 8,70,id142,aci_bench,openai_gpt-4o-2024-05-13,Model A,4,3,4,5.0,4.666666666666667,5.0
+Lance Downing,Internal Medicine,Team 8,88,id143,aci_bench,openai_gpt-4o-2024-05-13,Model A,4,5,5,4.333333333333333,4.333333333333333,5.0
+Lance Downing,Internal Medicine,Team 8,71,id146,aci_bench,meta_llama-3.3-70b-instruct,Model A,3,3,4,4.0,3.6666666666666665,4.666666666666667
+Chia-Chun Chiang,Neurology,Team 7,45,74,medi_qa,openai_gpt-4o-mini-2024-07-18,Model A,5,4,4,4.333333333333333,4.0,5.0
+Chia-Chun Chiang,Neurology,Team 7,36,85,medi_qa,google_gemini-2.0-flash-001,Model A,5,4,5,4.666666666666667,3.6666666666666665,5.0
+Chia-Chun Chiang,Neurology,Team 7,62,86,medi_qa,google_gemini-2.0-flash-001,Model A,5,5,5,5.0,5.0,5.0
+Chia-Chun Chiang,Neurology,Team 7,38,92,medi_qa,google_gemini-1.5-pro-001,Model A,4,3,3,4.0,2.6666666666666665,5.0
+Chia-Chun Chiang,Neurology,Team 7,47,93,medi_qa,google_gemini-2.0-flash-001,Model A,3,4,4,5.0,5.0,5.0
+Chia-Chun Chiang,Neurology,Team 7,30,99,medi_qa,anthropic_claude-3-7-sonnet-20250219,Model A,3,4,4,5.0,4.666666666666667,5.0
+Chia-Chun Chiang,Neurology,Team 7,90,id100,aci_bench,google_gemini-1.5-pro-001,Model A,4,5,4,5.0,4.333333333333333,5.0
+Chia-Chun Chiang,Neurology,Team 7,89,id104,aci_bench,anthropic_claude-3-5-sonnet-20241022,Model A,5,5,5,4.0,4.0,5.0
+Chia-Chun Chiang,Neurology,Team 7,72,id108,aci_bench,google_gemini-1.5-pro-001,Model A,3,3,4,4.666666666666667,4.0,5.0
+Chia-Chun Chiang,Neurology,Team 7,91,id109,aci_bench,anthropic_claude-3-5-sonnet-20241022,Model A,5,4,5,4.333333333333333,4.333333333333333,5.0
+Kameron Black,Clinical Informatics,Team 10,74,id174,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,5,5,5,5.0,4.666666666666667,5.0
+Kameron Black,Clinical Informatics,Team 10,84,id185,aci_bench,google_gemini-2.0-flash-001,Model A,5,5,5,4.333333333333333,4.333333333333333,5.0
+Kameron Black,Clinical Informatics,Team 10,68,id82,aci_bench,anthropic_claude-3-7-sonnet-20250219,Model A,5,5,3,4.0,4.666666666666667,5.0
+Kameron Black,Clinical Informatics,Team 10,98,id87,aci_bench,google_gemini-2.0-flash-001,Model A,5,5,5,5.0,4.666666666666667,5.0
+Kameron Black,Clinical Informatics,Team 10,67,id88,aci_bench,openai_gpt-4o-mini-2024-07-18,Model A,5,5,4,4.333333333333333,4.333333333333333,5.0
+Kameron Black,Clinical Informatics,Team 10,75,id89,aci_bench,google_gemini-2.0-flash-001,Model A,5,5,5,4.666666666666667,4.333333333333333,5.0
+Kameron Black,Clinical Informatics,Team 10,86,id90,aci_bench,openai_gpt-4o-2024-05-13,Model A,5,5,5,4.333333333333333,3.6666666666666665,4.666666666666667
+Kameron Black,Clinical Informatics,Team 10,94,id93,aci_bench,openai_gpt-4o-mini-2024-07-18,Model A,5,5,5,4.333333333333333,4.0,5.0
+Kameron Black,Clinical Informatics,Team 10,80,id96,aci_bench,meta_llama-3.3-70b-instruct,Model A,5,5,5,4.0,3.3333333333333335,4.0
