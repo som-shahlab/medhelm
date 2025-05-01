@@ -273,3 +273,8 @@ MODEL_NAME_MAPPING: Dict[str, str] = {
     "deepseek_r1": "DeepSeek R1",
     "o3_mini_2025_01_31": "o3-mini (2025-01-31)"
 }
+
+EXPECTED_MAX_EVAL_INSTANCES: Dict[str, int] = {
+    "clear": 100,
+    "default": 1000
+}
