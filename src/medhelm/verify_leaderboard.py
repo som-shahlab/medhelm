@@ -75,7 +75,6 @@ def verify_leaderboard(
         stats_path: str = os.path.join(runs_path, run_dir_name, PER_INSTANCE_STATS_FILE_NAME)
         run_spec = None
         scenario = None
-        run_spec = read_run_spec(run_spec_path)
         if os.path.exists(run_spec_path):
             run_spec = read_run_spec(run_spec_path)
         if os.path.exists(scenario_path):
@@ -89,7 +88,7 @@ def verify_leaderboard(
             "stats_exists": os.path.exists(stats_path),
             "per_instance_stats_exists": os.path.exists(per_instance_stats_path),
             "max_eval_instances_ok": run_spec and run_spec.adapter_spec.max_eval_instances == expected_max_eval_instances,
-            "max_eval_instances": run_spec.adapter_spec.max_eval_instances,
+            "max_eval_instances": run_spec.adapter_spec.max_eval_instances if run_spec else None,
             "expected_max_eval_instances": expected_max_eval_instances
         }
         
