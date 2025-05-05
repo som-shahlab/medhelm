@@ -4,7 +4,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import BoundaryNorm, ListedColormap
 import argparse
-def plot_category_heatmap(df_path, aggregated=True):
+
+
+def plot_category_heatmap(
+    df_path: str,
+    output_path: str,
+    aggregated=True
+):
     df = pd.read_csv(df_path)
     
     # Define category mappings
@@ -116,10 +122,8 @@ def plot_category_heatmap(df_path, aggregated=True):
     plt.tight_layout()
 
     # Save the plot
-    suffix = "aggregated" if aggregated else "individual"
-    save_path = f'/share/pi/nigam/users/aunell/medhelm/plots/category_heatmap_{suffix}.png'
-    plt.savefig(save_path, dpi=300, bbox_inches='tight')
-    print(f"Plot saved as '{save_path}'")
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    print(f"Plot saved as '{output_path}'")
     
     return plt.gcf()
 
@@ -128,10 +132,8 @@ if __name__ == "__main__":
     # Aggregated view (default)
     args = argparse.ArgumentParser()
     args.add_argument("--leaderboard_path", type=str, default="/share/pi/nigam/users/aunell/medhelm/data/leaderboard.csv")
+    args.add_argument("--output_path", type=str, default="../plots/category_heatmap_aggregated.csv")
     args = args.parse_args()
-    plot_category_heatmap(df_path=args.leaderboard_path)
+    plot_category_heatmap(df_path=args.leaderboard_path, output_path=args.output_path)
     plt.close()
     
-    # Non-aggregated view
-    plot_category_heatmap(df_path=args.leaderboard_path,aggregated=False)
-    plt.close()
