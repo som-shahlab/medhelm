@@ -65,7 +65,7 @@ ax.set_xticklabels([short_names[col] for col in benchmark_columns], rotation=45,
 
 ax.set_title('Language Model Performance on Medical Benchmarks', fontsize=16)
 ax.set_xlabel('Benchmark', fontsize=14)
-ax.set_ylabel('Language Models', fontsize=14)
+ax.set_ylabel('Language Model', fontsize=14)
 
 plt.xticks(rotation=45, ha='right', fontsize=9)
 plt.yticks(fontsize=10)
