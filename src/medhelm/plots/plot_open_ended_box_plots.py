@@ -59,6 +59,7 @@ def get_metric_stats(
     main_metric_stats.sort(key=lambda x: x.sum)
     return main_metric_stats
 
+
 def compute_statistics(
     main_metric_stats: List[float]
 ) -> Dict[str, float]:
