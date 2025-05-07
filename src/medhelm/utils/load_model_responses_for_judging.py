@@ -2,6 +2,7 @@ import zipfile
 from pathlib import Path
 import json
 import pandas as pd
+import argparse
 
 def find_model_response_directories(zip_path: str, target_dataset: str) -> list:
     """
@@ -123,9 +124,13 @@ def add_predictions_to_df(df: pd.DataFrame, path: str) -> pd.DataFrame:
     return df
 
 if __name__ == "__main__":
-    NUMBER_OF_MODELS = 6
-    zip_path = "/share/pi/nigam/data/medhelm/release/v1/benchmark_output_unredacted_20250225_005715.zip"
-    paths = find_model_response_directories(zip_path, target_dataset="aci") 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--target_dataset", type=str, default="mtsamples_replicate",
+                      help="Target dataset to process")
+    args = parser.parse_args()
+    NUMBER_OF_MODELS = 9
+    zip_path="/share/pi/nigam/users/migufuen/helm/prod/benchmark_output_20250505_025921.zip"
+    paths = find_model_response_directories(zip_path, target_dataset=args.target_dataset) 
     assert len(paths) == NUMBER_OF_MODELS, f"Expected {NUMBER_OF_MODELS} paths, got {len(paths)}"
     df = pd.DataFrame(columns=['instance_id', 'prompt', 'reference'])
     df = add_prompt_data_to_df(df, paths[0]) #prompts and references are the same for all models
@@ -133,4 +138,4 @@ if __name__ == "__main__":
         df = add_model_name_to_df(df, path)
         df = add_predictions_to_df(df, path)
 
-    df.to_csv('model_responses.csv')
+    df.to_csv(f'../medhelm/data/filtering/model_responses_{args.target_dataset}.csv')
