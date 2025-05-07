@@ -19,4 +19,5 @@ fi
 
 python3 ../src/medhelm/find_outliers.py \
     -b $BENCHMARK_OUTPUT \
-    -o ../results/outliers.csv
+    -o ../results/outliers.csv \
+    --outlier_bound 1.5

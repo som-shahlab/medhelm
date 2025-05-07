@@ -41,7 +41,7 @@ df[benchmark_columns] = df[benchmark_columns].replace("-", 0)
 
 df[benchmark_columns] = df[benchmark_columns].apply(pd.to_numeric)
 
-plt.figure(figsize=(16, 10))
+plt.figure(figsize=(20, 8))
 
 df_norm = df[benchmark_columns].copy()
 for col in df_norm.columns:

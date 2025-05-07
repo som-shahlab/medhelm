@@ -63,7 +63,7 @@ def get_metric_stats(per_instance_stats_list: List[PerInstanceStats], metric_nam
     return instance_to_value
 
 
-def find_outliers(data: Dict[str, float]) -> Dict[str, float]:
+def find_outliers(data: Dict[str, float], outlier_bound: float = 1.5) -> Dict[str, float]:
     """
     Identifies outliers in a dataset based on IQR method.
     
@@ -86,8 +86,8 @@ def find_outliers(data: Dict[str, float]) -> Dict[str, float]:
     iqr = q3 - q1
 
     # Define outlier bounds
-    lower_bound = q1 - 1.5 * iqr
-    upper_bound = q3 + 1.5 * iqr
+    lower_bound = q1 - outlier_bound * iqr
+    upper_bound = q3 + outlier_bound * iqr
 
     # Identify outliers
     outliers = {k: v for k, v in data.items() if v < lower_bound or v > upper_bound}
@@ -164,6 +164,7 @@ def aggregate_outliers_data(
         del annotations[scenario_name]["prompt_text"]
         data.append(
             {
+                "scenario": scenario_name,
                 "run_dir": run_dir,
                 "id": id_original,
                 "jury_score": score,
@@ -176,7 +177,11 @@ def aggregate_outliers_data(
         )
     return data
 
-def main(runs_path: str, output_path: str) -> None:
+def main(
+    runs_path: str,
+    output_path: str,
+    outlier_bound: float
+) -> None:
     benchmark_instance_scores_main: Dict[str, Dict[str, List[float]]] = {}
     benchmark_instance_scores_secondary: Dict[str, Dict[str, List[float]]] = {}
     
@@ -266,7 +271,7 @@ def main(runs_path: str, output_path: str) -> None:
     
     for scenario, main_scores in data_main.items():
         secondary_scores = data_secondary[scenario]
-        outliers = find_outliers(main_scores)
+        outliers = find_outliers(main_scores, outlier_bound)
         
         outliers_data = aggregate_outliers_data(
             outliers,
@@ -287,7 +292,12 @@ def main(runs_path: str, output_path: str) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--benchmark_path", "-b", type=str, required=True, help="Path to the directory containing run outputs")
-    parser.add_argument("--output_path", "-o", type=str, required=True, help="Output directory for the figure")
+    parser.add_argument("--output_path", "-o", type=str, required=True, help="Output path for the outliers csv")
+    parser.add_argument("--outlier_bound", type=float, default=1.5, help="Outlier bound")
     args = parser.parse_args()
 
-    main(f"{args.benchmark_path}/runs", args.output_path)
+    main(
+        runs_path=f"{args.benchmark_path}/runs", 
+        output_path=args.output_path,
+        outlier_bound=args.outlier_bound
+    )
