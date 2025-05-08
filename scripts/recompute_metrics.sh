@@ -10,5 +10,5 @@ mkdir -p ../logs  # Ensure the logs directory exists
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 python3 ../src/medhelm/leaderboard/recompute_metrics.py \
-    -b ../data/benchmark_output
+    -b /share/pi/nigam/users/migufuen/helm/prod/benchmark_output
 
