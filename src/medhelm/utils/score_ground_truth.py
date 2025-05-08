@@ -76,7 +76,7 @@ def evaluate_text(input_text: str, reference: str) -> Dict[str, Any]:
         return None
 
 def create_prompt(input_text: str, reference: str) -> str:
-    return f"Evaluate the following text: {input_text} against the following reference: {reference}. Return a score of 0 if the text is not a good response to the prompt, and a score of 1 if it is a reasonable response to the prompt. Only give a  score of 0 if the reference does not make sense with the prompt. Only return the score, no other text."
+    return f"Evaluate the following text: {input_text} against the following reference: {reference}. Return a score of 0 if the reference appears to be using outside information that is not present in the input text and is not expected to be external knowledge known by a clinician, and thus is an unreasonable gold standard response to the question. Give a score of 1 if the reference is a reasonable response to the prompt. Only give a score of 0 if the reference does not make sense with the prompt or the question couldn’t be answered in this way without additional information. Only return the score, no other text."
 
 def main():
     # Load the gold standard data
