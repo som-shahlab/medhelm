@@ -3,16 +3,10 @@ import argparse
 import json
 import os
 
-from collections import defaultdict
-from dataclasses import replace
 from tqdm import tqdm
 from typing import List
 
-from helm.benchmark.augmentations.perturbation_description import (
-    PerturbationDescription,
-)
 from helm.benchmark.metrics.metric import PerInstanceStats
-from helm.benchmark.metrics.statistic import merge_stat, Stat
 from helm.common.general import write, asdict_without_nones
 
 from medhelm.utils import (
@@ -46,40 +40,6 @@ def recomupte_per_instance_stats(
                 stat.max = stat.sum
                 stat.sum_squared = stat.sum * stat.sum
                 stat._update_mean_variance_stddev()
-
-
-def recompute_stats(per_instance_stats_list: List[PerInstanceStats]) -> List[Stat]:
-    """
-    Recomputes all stats for the leaderboard.
-    NOTE: For MedHELM, we didn't add any fairness or robustness perturbations,
-    so the robustness and fairness stats are just copies of the original stats.
-    """
-    aggregated_stats = defaultdict(Stat)
-    for per_instance_stats in per_instance_stats_list:
-        for stat in per_instance_stats.stats:
-            merge_stat(aggregated_stats, stat)
-
-    stats_list = []
-    fairness_stats_list = []
-    robustness_stats_list = []
-
-    for metric_name, stat in aggregated_stats.items():
-        stat = stat.take_mean()
-        stats_list.append(stat)
-        # Add robustness and fairness stats
-        robustness_stats_list.append(
-            Stat(
-                replace(metric_name, perturbation=PerturbationDescription(name="robustness", robustness=True))
-            )
-        )
-        fairness_stats_list.append(
-            Stat(
-                replace(metric_name, perturbation=PerturbationDescription(name="fairness", fairness=True))
-            )
-        )
-    stats_list.extend(robustness_stats_list)
-    stats_list.extend(fairness_stats_list)
-    return stats_list
 
 
 def process_run_spec(run_spec_path: str, min_value: float = 1):
