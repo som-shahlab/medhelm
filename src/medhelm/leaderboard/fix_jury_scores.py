@@ -99,7 +99,7 @@ def process_run_spec(run_spec_path: str, min_value: float = 1):
     
     write(
         per_instance_stats_path,
-        json.dumps(list(map(asdict_without_nones, remove_per_instance_stats_nans(per_instance_stats))), indent=2),
+        json.dumps(list(map(asdict_without_nones, per_instance_stats)), indent=2),
     )
 
 
