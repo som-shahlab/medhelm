@@ -13,7 +13,6 @@ from helm.benchmark.augmentations.perturbation_description import (
 )
 from helm.benchmark.metrics.metric import PerInstanceStats
 from helm.benchmark.metrics.statistic import merge_stat, Stat
-from helm.benchmark.runner import remove_per_instance_stats_nans
 from helm.common.general import write, asdict_without_nones
 
 from medhelm.utils import (
