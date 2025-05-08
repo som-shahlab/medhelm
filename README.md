@@ -28,13 +28,19 @@ pip install -e .
 bash scripts/create_heatmap.sh
 ```
 
-2. Cost vs Win Rate
+2. Taxonomy Coverage
+
+```bash
+python3 scripts/create_taxonomy_coverage.py
+```
+
+4. Cost vs Win Rate
 
 ```bash
 bash scripts/create_cost_plots.sh
 ```
 
-3. Open-ended Box Plots
+4. Open-ended Box Plots
 
 ```bash
 bash scripts/create_open_ended_box_plots.sh
