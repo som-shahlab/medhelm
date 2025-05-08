@@ -93,7 +93,7 @@ def process_run_spec(run_spec_path: str, min_value: float = 1):
     if scenario["name"] not in OPEN_ENDED_BENCHMARKS:
         # If the benchmark is not open ended, we don't need to recompute the stats
         # because those don't have any jury scores
-        pass
+        return
     metric_name = f"{scenario['name']}_accuracy"
     recomupte_per_instance_stats(per_instance_stats, metric_name, min_value)
     
