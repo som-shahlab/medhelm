@@ -10,13 +10,13 @@ from helm.benchmark.run_spec import RunSpec
 from helm.common.codec import from_json
 from helm.benchmark.metrics.metric import PerInstanceStats
 
-from medhelm.utils.constants import EXPECTED_MAX_EVAL_INSTANCES
-
-PER_INSTANCE_STATS_FILE_NAME = "stats.json"
-PER_INSTANCE_STATS_FILE_NAME = "per_instance_stats.json"
-SCENARIO_FILE_NAME = "scenario.json"
-RUN_SPEC_FILE_NAME = "run_spec.json"
-
+from medhelm.utils.constants import (
+    EXPECTED_MAX_EVAL_INSTANCES, 
+    SCENARIO_FILE_NAME, 
+    RUN_SPEC_FILE_NAME, 
+    STATS_FILE_NAME, 
+    PER_INSTANCE_STATS_FILE_NAME
+)
 
 def read_per_instance_stats(per_instance_stats_path: str) -> List[PerInstanceStats]:
     if not os.path.exists(per_instance_stats_path):
@@ -72,7 +72,7 @@ def verify_leaderboard(
         per_instance_stats_path: str = os.path.join(runs_path, run_dir_name, PER_INSTANCE_STATS_FILE_NAME)
         scenario_path: str = os.path.join(runs_path, run_dir_name, SCENARIO_FILE_NAME)
         run_spec_path: str = os.path.join(runs_path, run_dir_name, RUN_SPEC_FILE_NAME)
-        stats_path: str = os.path.join(runs_path, run_dir_name, PER_INSTANCE_STATS_FILE_NAME)
+        stats_path: str = os.path.join(runs_path, run_dir_name, STATS_FILE_NAME)
         run_spec = None
         scenario = None
         if os.path.exists(run_spec_path):

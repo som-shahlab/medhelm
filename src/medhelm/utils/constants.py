@@ -1,6 +1,12 @@
 from typing import Dict, Set, List
 
 
+PER_INSTANCE_STATS_FILE_NAME = "per_instance_stats.json"
+RUN_SPEC_FILE_NAME = "run_spec.json"
+SCENARIO_STATE_FILE_NAME = "scenario_state.json"
+SCENARIO_FILE_NAME = "scenario.json"
+STATS_FILE_NAME = "stats.json"
+
 BENCHMARKS: Dict[str, Set[str]]= {
     "Clinical Decision Support": {
         "Supporting Diagnostic Decisions": {
