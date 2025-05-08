@@ -34,15 +34,13 @@ NO_PERTURBATION_METRICS = [
 ]
 
 
-def recomupte_per_instance_stats(
+def recompute_per_instance_stats(
     per_instance_stats: List[PerInstanceStats]
 ) -> None:
     """
     Recomputes all per instance stats for the leaderboard.
     """
     for instance_stats in per_instance_stats:
-        # Recompute the stats here
-        # This is a placeholder for the actual recomputation logic
         for stat in instance_stats.stats:
             stat.min = stat.sum
             stat.max = stat.sum
@@ -139,7 +137,7 @@ def process_run_spec(run_spec_path: str):
     per_instance_stats = read_per_instance_stats(per_instance_stats_path)
     stats_path = os.path.join(run_spec_path, STATS_FILE_NAME)
     stats = get_unique_stats(read_stats(stats_path))
-    recomupte_per_instance_stats(per_instance_stats)
+    recompute_per_instance_stats(per_instance_stats)
     new_stats = recompute_stats(per_instance_stats, stats)
     # Even if we remove instances, we expect the same number of metrics to be
     # the same. If we remove metrics, this code does not support that feature.

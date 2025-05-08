@@ -20,7 +20,7 @@ from medhelm.utils.constants import (
 )
 
 
-def recomupte_per_instance_stats(
+def recompute_per_instance_stats(
     per_instance_stats: List[PerInstanceStats],
     metric_name: str,
     min_value: float = 1,
@@ -54,7 +54,7 @@ def process_run_spec(run_spec_path: str, min_value: float = 1):
         # because those don't have any jury scores
         return
     metric_name = f"{scenario['name']}_accuracy"
-    recomupte_per_instance_stats(per_instance_stats, metric_name, min_value)
+    recompute_per_instance_stats(per_instance_stats, metric_name, min_value)
     
     write(
         per_instance_stats_path,
