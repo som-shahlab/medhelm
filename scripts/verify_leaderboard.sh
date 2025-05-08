@@ -11,6 +11,6 @@ LOG_FILE="../logs/verify_leaderboard_$DATE.log"
 mkdir -p ../logs  # Ensure the logs directory exists
 exec > >(tee -a "$LOG_FILE") 2>&1
 
-python3 ../src/medhelm/verify_leaderboard.py \
+python3 ../src/medhelm/leaderboard/verify_leaderboard.py \
     -i ~/Downloads/benchmark_output \
     -o ../results/leaderboard_verification_$DATE.csv

@@ -10,7 +10,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 
 mkdir ../plots
 
-BENCHMARK_OUTPUT=~/Downloads/benchmark_output
+BENCHMARK_OUTPUT=/share/pi/nigam/users/migufuen/helm/prod/benchmark_output/
 
 if [ ! -d "$BENCHMARK_OUTPUT" ]; then
     echo "Error: Directory $BENCHMARK_OUTPUT does not exist."

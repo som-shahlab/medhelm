@@ -1,0 +1,83 @@
+{
+  "name": "medication_qa:model=openai_gpt-4o-2024-05-13,model_deployment=stanfordhealthcare_gpt-4o-2024-05-13",
+  "scenario_spec": {
+    "class_name": "helm.benchmark.scenarios.medication_qa_scenario.MedicationQAScenario",
+    "args": {}
+  },
+  "adapter_spec": {
+    "method": "generation",
+    "global_prefix": "",
+    "global_suffix": "",
+    "instructions": "Please answer the following consumer health question.\n",
+    "input_prefix": "Question: ",
+    "input_suffix": "\n",
+    "reference_prefix": "A. ",
+    "reference_suffix": "\n",
+    "chain_of_thought_prefix": "",
+    "chain_of_thought_suffix": "\n",
+    "output_prefix": "Answer: ",
+    "output_suffix": "\n",
+    "instance_prefix": "\n",
+    "substitutions": [],
+    "max_train_instances": 0,
+    "max_eval_instances": 10,
+    "num_outputs": 1,
+    "num_train_trials": 1,
+    "num_trials": 1,
+    "sample_train": true,
+    "model_deployment": "stanfordhealthcare/gpt-4o-2024-05-13",
+    "model": "openai/gpt-4o-2024-05-13",
+    "temperature": 0.0,
+    "max_tokens": 512,
+    "stop_sequences": [],
+    "multi_label": false
+  },
+  "metric_specs": [
+    {
+      "class_name": "helm.benchmark.metrics.summarization_metrics.SummarizationMetric",
+      "args": {
+        "task": "medication_qa",
+        "device": "cuda",
+        "bertscore_model": "distilbert-base-uncased",
+        "rescale_with_baseline": false
+      }
+    },
+    {
+      "class_name": "helm.benchmark.metrics.basic_metrics.BasicGenerationMetric",
+      "args": {
+        "names": []
+      }
+    },
+    {
+      "class_name": "helm.benchmark.metrics.basic_metrics.BasicReferenceMetric",
+      "args": {}
+    },
+    {
+      "class_name": "helm.benchmark.metrics.basic_metrics.InstancesPerSplitMetric",
+      "args": {}
+    },
+    {
+      "class_name": "helm.benchmark.metrics.medication_qa_metrics.MedicationQAMetric",
+      "args": {}
+    }
+  ],
+  "data_augmenter_spec": {
+    "perturbation_specs": [],
+    "should_augment_train_instances": false,
+    "should_include_original_train": false,
+    "should_skip_unchanged_train": false,
+    "should_augment_eval_instances": false,
+    "should_include_original_eval": false,
+    "should_skip_unchanged_eval": false,
+    "seeds_per_instance": 1
+  },
+  "groups": [
+    "medication_qa"
+  ],
+  "annotators": [
+    {
+      "class_name": "helm.benchmark.annotation.medication_qa_annotator.MedicationQAAnnotator",
+      "args": {}
+    }
+  ]
+}
