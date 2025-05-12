@@ -9,7 +9,7 @@ import argparse
 def plot_category_heatmap(
     df_path: str,
     output_path: str,
-    aggregated=True
+    aggregated=False
 ):
     df = pd.read_csv(df_path)
     
@@ -22,27 +22,27 @@ def plot_category_heatmap(
             'Medbullets - EM',
             'CDI-QA - EM',
             'Medec - MedecFlagAcc',
-            'MTSamples - Accuracy',
+            'MTSamples - Jury Score',
             'EHRSHOT - EM',
-            'MedAlign - Accuracy',
+            'MedAlign - Jury Score',
             'ADHD-Behavior - EM',
             'ADHD-MedEffects - EM',
         ],
         'Clinical Note Generation': [
-            'ACI-Bench - Accuracy',
+            'ACI-Bench - Jury Score',
             'MTSamples Procedures - Accu...',
-            'NoteExtract - Accuracy',
-            'MIMIC-RRS - Accuracy',
-            'DischargeMe - Accuracy',
-            'MIMIC-BHC - Accuracy'
+            'NoteExtract - Jury Score',
+            'MIMIC-RRS - Jury Score',
+            'DischargeMe - Jury Score',
+            'MIMIC-BHC - Jury Score'
         ],
         'Patient Communication and Education': [
-            'MedicationQA - Accuracy',
-            'MEDIQA - Accuracy',
-            'MentalHealth - Accuracy',
-            'MedDialog - Accuracy',
+            'MedicationQA - Jury Score',
+            'MEDIQA - Jury Score',
+            'MentalHealth - Jury Score',
+            'MedDialog - Jury Score',
             'MedConfInfo - EM',
-            'PatientInstruct - Accuracy',
+            'PatientInstruct - Jury Score',
             'ProxySender - EM',
             'PrivacyDetection - EM',
         ],
@@ -85,23 +85,51 @@ def plot_category_heatmap(
     else:
         # Non-aggregated view (all datasets)
         # Get all columns except 'Model' and 'Mean win rate'
+        # Get metric columns and rename any with "Accuracy" to "Jury Score"
+        # Get metric columns and standardize naming
         metric_columns = [col for col in df.columns if col not in ['Model', 'Mean win rate']]
+        replacements = {
+            'Accuracy': 'Jury Score',
+            'MIM...': 'Jury Score', 
+            'Accu...': 'Jury Score',
+            'MedCalc Acc...': 'MedCalc Accuracy'
+        }
+        for old, new in replacements.items():
+            metric_columns = [col.replace(old, new) for col in metric_columns]
+        print(metric_columns)
+        
+        # Rename columns in dataframe
+        rename_dict = {}
+        for col in df.columns:
+            if 'Accuracy' in col:
+                rename_dict[col] = col.replace('Accuracy', 'Jury Score')
+            elif 'MIM...' in col:
+                rename_dict[col] = col.replace('MIM...', 'Jury Score')
+            elif 'Accu...' in col:
+                rename_dict[col] = col.replace('Accu...', 'Jury Score')
+            elif 'MedCalc Acc...' in col:
+                rename_dict[col] = col.replace('MedCalc Acc...', 'MedCalc Accuracy')
+        df = df.rename(columns=rename_dict)
         
         # Normalize scores
+        print(df.columns)
         for col in metric_columns:
+            print(col)
             if df[col].max() > 1:
                 df[col] = df[col] / 5.0
         
         # Prepare data for heatmap
         heatmap_df = df.set_index('Model')[metric_columns]
+        print(heatmap_df)
         plt.figure(figsize=(20, 8))  # Larger figure for more columns
-        title = "Individual Dataset Scores by Model"
+        title = "Individual Benchmark Scores by Model"
 
     # Color scheme setup
     colors = ["#d73027", "#fc8d59", "#fee08b", "#d9ef8b", "#91cf60", "#1a9850"]
     bounds = [0, .5, .6, .7, .8, .9, 1]
-    norm = BoundaryNorm(bounds, len(colors))
-    cmap = ListedColormap(colors)
+    if not aggregated:
+        colors = ["#d73027", "#fc8d59", "#fee08b", "#d9ef8b", "#91cf60", "#1a9850"]
+        bounds = [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1]
 
     # Plot
     ax = sns.heatmap(
@@ -132,8 +160,9 @@ if __name__ == "__main__":
     # Aggregated view (default)
     args = argparse.ArgumentParser()
     args.add_argument("--leaderboard_path", type=str, default="/share/pi/nigam/users/aunell/medhelm/data/leaderboard.csv")
-    args.add_argument("--output_path", type=str, default="../plots/category_heatmap_aggregated.csv")
+    args.add_argument("--output_path", type=str, default="../medhelm/plots/category_heatmap_AGG.png")
+    args.add_argument("--aggregated", type=bool, default=True)
     args = args.parse_args()
-    plot_category_heatmap(df_path=args.leaderboard_path, output_path=args.output_path)
+    plot_category_heatmap(df_path=args.leaderboard_path, output_path=args.output_path, aggregated=args.aggregated)
     plt.close()
     
