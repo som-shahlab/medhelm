@@ -117,7 +117,7 @@ def main(
     if category:
         title = f'{title} ({category})'
     plt.title(title, fontsize=16)
-    plt.xlabel('Total Cost (USD)', fontsize=14)
+    plt.xlabel('Cost (USD)', fontsize=14)
     plt.ylabel('Mean Win Rate', fontsize=14)
     plt.grid(True)
     
