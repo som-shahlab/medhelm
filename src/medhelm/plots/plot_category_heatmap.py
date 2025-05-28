@@ -2,116 +2,127 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import BoundaryNorm, ListedColormap
 import argparse
 
 
-def plot_category_heatmap(
-    df_path: str,
-    output_path: str,
-    aggregated=False,
-    transpose=False  # <- NEW ARGUMENT
-):
+# Define all tasks as a compact list of tuples: (original column, display name, category)
+METRIC_INFO = [
+    # Clinical Decision Support
+    ("MedCalc-Bench - MedCalc Acc...", "MedCalc-Bench - MedCalcAcc", "Clinical Decision Support"),
+    ("CLEAR - EM", "CLEAR - EM", "Clinical Decision Support"),
+    ("MTSamples - Accuracy", "MTSamples - Jury Score", "Clinical Decision Support"),
+    ("Medec - MedecFlagAcc", "Medec - MedecFlagAcc", "Clinical Decision Support"),
+    ("EHRSHOT - EM", "EHRSHOT - EM", "Clinical Decision Support"),
+    ("HeadQA - EM", "HeadQA - EM", "Clinical Decision Support"),
+    ("Medbullets - EM", "Medbullets - EM", "Clinical Decision Support"),
+    ("MedAlign - Accuracy", "MedAlign - Jury Score", "Clinical Decision Support"),
+    ("ADHD-Behavior - EM", "ADHD-Behavior - EM", "Clinical Decision Support"),
+    ("ADHD-MedEffects - EM", "ADHD-MedEffects - EM", "Clinical Decision Support"),
+    ("CDI-QA - EM", "CDI-QA - EM", "Clinical Decision Support"),
+
+    # Clinical Note Generation
+    ("ACI-Bench - Accuracy", "ACI-Bench - Jury Score", "Clinical Note Generation"),
+    ("MTSamples Procedures - Accu...", "MTSamples Procedures - Jury Score", "Clinical Note Generation"),
+    ("NoteExtract - Accuracy", "NoteExtract - Jury Score", "Clinical Note Generation"),
+    ("MIMIC-RRS - Accuracy", "MIMIC-RRS - Jury Score", "Clinical Note Generation"),
+    ("DischargeMe - Accuracy", "DischargeMe - Jury Score", "Clinical Note Generation"),
+    ("MIMIC-BHC - Accuracy", "MIMIC-BHC - Jury Score", "Clinical Note Generation"),
+
+    # Patient Communication and Education
+    ("MedicationQA - Accuracy", "MedicationQA - Jury Score", "Patient Communication and Education"),
+    ("PatientInstruct - Accuracy", "PatientInstruct - Jury Score", "Patient Communication and Education"),
+    ("MedDialog - Accuracy", "MedDialog - Jury Score", "Patient Communication and Education"),
+    ("MedConfInfo - EM", "MedConfInfo - EM", "Patient Communication and Education"),
+    ("MEDIQA - Accuracy", "MEDIQA - Jury Score", "Patient Communication and Education"),
+    ("MentalHealth - Accuracy", "MentalHealth - Jury Score", "Patient Communication and Education"),
+    ("ProxySender - EM", "ProxySender - EM", "Patient Communication and Education"),
+    ("PrivacyDetection - EM", "PrivacyDetection - EM", "Patient Communication and Education"),
+
+    # Medical Research Assistance
+    ("EHRSQL - EHRSQLExeAcc", "EHRSQL - EHRSQLExecAcc ", "Medical Research Assistance"),
+    ("BMT-Status - EM", "BMT-Status - EM", "Medical Research Assistance"),
+    ("RaceBias - EM", "RaceBias - EM", "Medical Research Assistance"),
+    ("N2C2-CT - EM", "N2C2-CT - EM", "Medical Research Assistance"),
+    ("MedHallu - EM", "MedHallu - EM", "Medical Research Assistance"),
+    ("PubMedQA - EM", "PubMedQA - EM", "Medical Research Assistance"),
+
+    # Administration and Workflow
+    ("HospiceReferral - EM", "HospiceReferral - EM", "Administration and Workflow"),
+    ("MIMIC-IV Billing Code - MIM...", "MIMIC-IV Billing Code - EM", "Administration and Workflow"),
+    ("ClinicReferral - EM", "ClinicReferral - EM", "Administration and Workflow"),
+    ("ENT-Referral - EM", "ENT-Referral - EM", "Administration and Workflow"),
+]
+
+# Generate mappings
+RENAME_MAP = {orig: display for orig, display, _ in METRIC_INFO}
+CATEGORY_MAP = {}
+for _, display, cat in METRIC_INFO:
+    CATEGORY_MAP.setdefault(cat, []).append(display)
+
+
+def normalize_scores(df, metric_cols):
+    for col in metric_cols:
+        if df[col].max() > 1:
+            df[col] = df[col] / 5.0
+    return df
+
+
+def plot_category_heatmap(df_path, output_path, aggregated=False, transpose=False):
     df = pd.read_csv(df_path)
-    
-    # Define category mappings
-    category_mappings = {
-        'Clinical Decision Support': [...],
-        'Clinical Note Generation': [...],
-        'Patient Communication and Education': [...],
-        'Medical Research Assistance': [...],
-        'Administration and Workflow': [...]
-    }
+    df = df.rename(columns=RENAME_MAP)
+
+    metric_cols = [v for v in RENAME_MAP.values() if v in df.columns]
+    if len(metric_cols) != len(RENAME_MAP):
+        print(f"Warning: {len(metric_cols)} metrics found in the dataframe, expected {len(RENAME_MAP)}")
+    df = normalize_scores(df, metric_cols)
 
     if aggregated:
-        # Aggregated view (categories)
-        results = {}
-        for model in df['Model']:
-            results[model] = {}
-            for category, metrics in category_mappings.items():
-                scores = []
-                for metric in metrics:
-                    if metric in df.columns:
-                        score = df.loc[df['Model'] == model, metric].iloc[0]
-                        if score > 1:
-                            score = score / 5.0
-                        scores.append(score)
-                results[model][category] = np.mean(scores)
-        
-        heatmap_df = pd.DataFrame(results).T
-        plt.figure(figsize=(14, 6))
+        df_agg = df.set_index("Model")[metric_cols].copy()
+        col_to_cat = {}
+        for cat, cols in CATEGORY_MAP.items():
+            for col in cols:
+                col_to_cat[col] = cat
+        df_agg = df_agg.rename(columns=col_to_cat)
+        df_agg = df_agg.groupby(by=df_agg.columns, axis=1).mean()
+        heatmap_df = df_agg
         title = "Mean Normalized Scores by Model and Category"
+        plt.figure(figsize=(14, 6))
     else:
-        metric_columns = [col for col in df.columns if col not in ['Model', 'Mean win rate']]
-        replacements = {
-            'Accuracy': 'Jury Score',
-            'MIM...': 'Jury Score', 
-            'Accu...': 'Jury Score',
-            'MedCalc Acc...': 'MedCalc Accuracy'
-        }
-        for old, new in replacements.items():
-            metric_columns = [col.replace(old, new) for col in metric_columns]
-        
-        rename_dict = {}
-        for col in df.columns:
-            if 'Accuracy' in col:
-                rename_dict[col] = col.replace('Accuracy', 'Jury Score')
-            elif 'MIM...' in col:
-                rename_dict[col] = col.replace('MIM...', 'Jury Score')
-            elif 'Accu...' in col:
-                rename_dict[col] = col.replace('Accu...', 'Jury Score')
-            elif 'MedCalc Acc...' in col:
-                rename_dict[col] = col.replace('MedCalc Acc...', 'MedCalc Accuracy')
-        df = df.rename(columns=rename_dict)
-        
-        for col in metric_columns:
-            if df[col].max() > 1:
-                df[col] = df[col] / 5.0
-        
-        heatmap_df = df.set_index('Model')[metric_columns]
-
+        heatmap_df = df.set_index("Model")[metric_cols]
         if transpose:
             heatmap_df = heatmap_df.T
             plt.figure(figsize=(10, 14))
         else:
             plt.figure(figsize=(20, 8))
-
         title = "Individual Benchmark Scores by Model"
 
-    # Color scheme setup
-    colors = ["#d73027", "#fc8d59", "#fee08b", "#d9ef8b", "#91cf60", "#1a9850"]
-    bounds = [0, .5, .6, .7, .8, .9, 1]
-    if not aggregated:
-        colors = ["#d73027", "#fc8d59", "#fee08b", "#d9ef8b", "#91cf60", "#1a9850"]
-        bounds = [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1]
+    bounds = [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1] if not aggregated else [0, .5, .6, .7, .8, .9, 1]
 
-    # Plot
-    ax = sns.heatmap(
+    sns.heatmap(
         heatmap_df,
         annot=True,
         fmt=".2f",
         cmap="RdYlGn",
         cbar_kws={"ticks": bounds},
         linewidths=0.5,
-        linecolor='gray',
-        square=False
+        linecolor='gray'
     )
 
     plt.title(title, fontsize=14)
     plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
-
     plt.savefig(output_path, dpi=300, bbox_inches='tight')
     print(f"Plot saved as '{output_path}'")
     return plt.gcf()
 
+
 if __name__ == "__main__":
-    args = argparse.ArgumentParser()
-    args.add_argument("--leaderboard_path", type=str, default="/share/pi/nigam/users/aunell/medhelm/data/leaderboard.csv")
-    args.add_argument("--output_path", type=str, default="../medhelm/plots/category_heatmap_AGG.png")
-    args.add_argument("--aggregated", action="store_true")
-    args.add_argument("--transpose", action="store_true")
-    args = args.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--leaderboard_path", type=str, default="../medhelm/data/leaderboard.csv")
+    parser.add_argument("--output_path", type=str, default="../medhelm/plots/category_heatmap_new.png")
+    parser.add_argument("--aggregated", action="store_true")
+    parser.add_argument("--transpose", action="store_true")
+    args = parser.parse_args()
 
     plot_category_heatmap(
         df_path=args.leaderboard_path,
