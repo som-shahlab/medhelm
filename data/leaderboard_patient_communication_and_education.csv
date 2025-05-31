@@ -1,4 +1,4 @@
-﻿Model,Mean win rate,MedicationQA - Accuracy,PatientInstruct - Accuracy,MedDialog - Accuracy,MedConfInfo - EM,MEDIQA - Accuracy,MentalHealth - Accuracy,ProxySender - EM,PrivacyDetection - EM
+﻿Model,Mean win rate,MedicationQA - Jury Score,PatientInstruct - Jury Score,MedDialog - Jury Score,MedConfInfo - EM,MEDIQA - Jury Score,MentalHealth - Jury Score,ProxySender - EM,PrivacyDetection - EM
 DeepSeek R1,0.797,4.585,4.785,4.436,0.739,4.758,4.95,0.743,0.98
 Claude 3.7 Sonnet (20250219),0.719,4.628,3.661,4.198,0.811,4.728,4.955,0.62,0.997
 Claude 3.5 Sonnet (20241022),0.578,4.582,3.761,4.11,0.77,4.659,4.964,0.737,0.827

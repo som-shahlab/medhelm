@@ -1,4 +1,4 @@
-﻿Model,Mean win rate,DischargeMe - Accuracy,ACI-Bench - Accuracy,MTSamples Procedures - Accu...,MIMIC-RRS - Accuracy,MIMIC-BHC - Accuracy,NoteExtract - Accuracy
+﻿Model,Mean win rate,DischargeMe - Jury Score,ACI-Bench - Jury Score,MTSamples Procedures - Jury Score,MIMIC-RRS - Jury Score,MIMIC-BHC - Jury Score,NoteExtract - Jury Score
 Claude 3.7 Sonnet (20250219),0.813,3.804,4.618,4.023,4.501,3.991,4.949
 DeepSeek R1,0.75,4.297,4.673,4.231,4.61,3.919,4.665
 Claude 3.5 Sonnet (20241022),0.688,3.829,4.47,3.935,4.478,4.079,4.948

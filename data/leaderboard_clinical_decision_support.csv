@@ -1,4 +1,4 @@
-﻿Model,Mean win rate,MedCalc-Bench - MedCalc Acc...,CLEAR - EM,MTSamples - Accuracy,Medec - MedecFlagAcc,EHRSHOT - EM,HeadQA - EM,Medbullets - EM,MedAlign - Accuracy,ADHD-Behavior - EM,ADHD-MedEffects - EM
+﻿Model,Mean win rate,MedCalc-Bench - MedCalc Accuracy,CLEAR - EM,MTSamples - Jury Score,Medec - MedecFlagAcc,EHRSHOT - EM,HeadQA - EM,Medbullets - EM,MedAlign - Jury Score,ADHD-Behavior - EM,ADHD-MedEffects - EM
 o3-mini (2025-01-31),0.788,0.34,0.831,4.604,0.687,0.642,0.893,0.812,4.005,0.799,0.926
 DeepSeek R1,0.65,0.348,0.83,4.533,0.591,0.22,0.721,0.656,4.182,0.809,0.938
 GPT-4o (2024-05-13),0.619,0.188,0.642,4.291,0.58,0.541,0.906,0.711,3.844,0.837,0.945
