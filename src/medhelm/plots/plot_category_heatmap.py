@@ -8,7 +8,7 @@ import argparse
 # Define all tasks as a compact list of tuples: (original column, display name, category)
 METRIC_INFO = [
     # Clinical Decision Support
-    ("MedCalc-Bench - MedCalc Acc...", "MedCalc-Bench - MedCalcAcc", "Clinical Decision Support"),
+    ("MedCalc-Bench - MedCalc Accuracy", "MedCalc-Bench - MedCalc Accuracy", "Clinical Decision Support"),
     ("CLEAR - EM", "CLEAR - EM", "Clinical Decision Support"),
     ("MTSamples - Accuracy", "MTSamples - Jury Score", "Clinical Decision Support"),
     ("Medec - MedecFlagAcc", "Medec - MedecFlagAcc", "Clinical Decision Support"),
@@ -18,15 +18,14 @@ METRIC_INFO = [
     ("MedAlign - Accuracy", "MedAlign - Jury Score", "Clinical Decision Support"),
     ("ADHD-Behavior - EM", "ADHD-Behavior - EM", "Clinical Decision Support"),
     ("ADHD-MedEffects - EM", "ADHD-MedEffects - EM", "Clinical Decision Support"),
-    ("CDI-QA - EM", "CDI-QA - EM", "Clinical Decision Support"),
 
     # Clinical Note Generation
-    ("ACI-Bench - Accuracy", "ACI-Bench - Jury Score", "Clinical Note Generation"),
-    ("MTSamples Procedures - Accu...", "MTSamples Procedures - Jury Score", "Clinical Note Generation"),
-    ("NoteExtract - Accuracy", "NoteExtract - Jury Score", "Clinical Note Generation"),
-    ("MIMIC-RRS - Accuracy", "MIMIC-RRS - Jury Score", "Clinical Note Generation"),
     ("DischargeMe - Accuracy", "DischargeMe - Jury Score", "Clinical Note Generation"),
+    ("ACI-Bench - Accuracy", "ACI-Bench - Jury Score", "Clinical Note Generation"),
+    ("MTSamples Procedures - Jury Score", "MTSamples Procedures - Jury Score", "Clinical Note Generation"),
+    ("MIMIC-RRS - Accuracy", "MIMIC-RRS - Jury Score", "Clinical Note Generation"),
     ("MIMIC-BHC - Accuracy", "MIMIC-BHC - Jury Score", "Clinical Note Generation"),
+    ("NoteExtract - Accuracy", "NoteExtract - Jury Score", "Clinical Note Generation"),
 
     # Patient Communication and Education
     ("MedicationQA - Accuracy", "MedicationQA - Jury Score", "Patient Communication and Education"),
@@ -39,17 +38,18 @@ METRIC_INFO = [
     ("PrivacyDetection - EM", "PrivacyDetection - EM", "Patient Communication and Education"),
 
     # Medical Research Assistance
-    ("EHRSQL - EHRSQLExeAcc", "EHRSQL - EHRSQLExecAcc ", "Medical Research Assistance"),
+    ("PubMedQA - EM", "PubMedQA - EM", "Medical Research Assistance"),
+    ("EHRSQL - EHRSQLExeAcc", "EHRSQL - EHRSQLExeAcc", "Medical Research Assistance"),
     ("BMT-Status - EM", "BMT-Status - EM", "Medical Research Assistance"),
     ("RaceBias - EM", "RaceBias - EM", "Medical Research Assistance"),
     ("N2C2-CT - EM", "N2C2-CT - EM", "Medical Research Assistance"),
     ("MedHallu - EM", "MedHallu - EM", "Medical Research Assistance"),
-    ("PubMedQA - EM", "PubMedQA - EM", "Medical Research Assistance"),
 
     # Administration and Workflow
     ("HospiceReferral - EM", "HospiceReferral - EM", "Administration and Workflow"),
-    ("MIMIC-IV Billing Code - MIM...", "MIMIC-IV Billing Code - EM", "Administration and Workflow"),
+    ("MIMIC-IV Billing Code - MIMICBillingF1", "MIMIC-IV Billing Code - MIMICBillingF1", "Administration and Workflow"),
     ("ClinicReferral - EM", "ClinicReferral - EM", "Administration and Workflow"),
+    ("CDI-QA - EM", "CDI-QA - EM", "Administration and Workflow"),
     ("ENT-Referral - EM", "ENT-Referral - EM", "Administration and Workflow"),
 ]
 
@@ -63,14 +63,12 @@ for _, display, cat in METRIC_INFO:
 def normalize_scores(df, metric_cols):
     for col in metric_cols:
         if df[col].max() > 1:
-            df[col] = df[col] / 5.0
+            df[col] = (df[col] -1.0) / (5.0 - 1.0)
     return df
 
 
 def plot_category_heatmap(df_path, output_path, aggregated=False, transpose=False):
     df = pd.read_csv(df_path)
-    df = df.rename(columns=RENAME_MAP)
-
     metric_cols = [v for v in RENAME_MAP.values() if v in df.columns]
     if len(metric_cols) != len(RENAME_MAP):
         print(f"Warning: {len(metric_cols)} metrics found in the dataframe, expected {len(RENAME_MAP)}")
