@@ -63,10 +63,7 @@ for _, display, cat in METRIC_INFO:
 def normalize_scores(df, metric_cols):
     for col in metric_cols:
         if df[col].max() > 1:
-            df[col] = df[col] / 5.0
-
-            # df[col] = (df[col] -1) / (5.0 - 1)
-            # df[col] = (df[col] -1) / (5.0 - 1)
+            df[col] = (df[col] -1.0) / (5.0 - 1.0)
     return df
 
 
