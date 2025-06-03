@@ -65,6 +65,59 @@ def extract_and_process_zip(zip_path):
         zip_ref.extractall(extract_path)
     return process_all_jsons(extract_path)
 
+def new_win_rate_column(csv_path, new_csv_path):
+    """
+    Calculate pairwise win rates between each row and all other rows.
+    Updates the mean_win_rate column with the new aggregated win rates.
+    
+    Args:
+        csv_path: Path to CSV file containing mean_win_rate column
+    Returns:
+        List of new win rates for each row
+    """
+    import pandas as pd
+    
+    # Read CSV file
+    df = pd.read_csv(csv_path)
+    
+    numeric_cols = df.select_dtypes(include=['float64', 'int64']).columns
+    numeric_cols = numeric_cols[numeric_cols != 'Mean win rate']
+    print(len(numeric_cols))
+    new_rates = []
+    
+    # Calculate win rates for each row
+    for i in range(len(df)):
+        total_wins = 0
+        total_comparisons = 0
+        
+        # Compare against all other rows
+        for j in range(len(df)):
+            if i == j:
+                continue
+                
+            # Compare each numeric column
+            for col in numeric_cols:
+                val_i = df.iloc[i][col]
+                val_j = df.iloc[j][col]
+                
+                # Skip if either value is missing
+                if pd.isna(val_i) or pd.isna(val_j):
+                    continue
+                    
+                # Add win if i scores higher than j
+                if val_i > val_j:
+                    total_wins += 1
+                total_comparisons += 1
+        
+        # Calculate win rate for this row
+        win_rate = total_wins / total_comparisons if total_comparisons > 0 else 0
+        print(f"Row {i} win rate: {win_rate}")
+        win_rate = round(win_rate, 2)
+        new_rates.append(win_rate)
+        
+    df['Mean win rate'] = new_rates
+    df.to_csv(new_csv_path, index=False)
+
 def new_leaderboard_csv():
     import json
     import csv
@@ -78,7 +131,7 @@ def new_leaderboard_csv():
             print(s)
 
     # Load JSON
-    with open('../medhelm/refusal_rate_zip.json', 'r') as f:
+    with open('../medhelm/src/medhelm/refusal_rate_zip.json', 'r') as f:
         json_data = json.load(f)
 
     # Load CSV
@@ -119,9 +172,8 @@ def new_leaderboard_csv():
         # Find matching model row and update score
         for i, row in enumerate(new_rows):
             if normalize(row[0]) in normalize(model_name):
-                print("ORIGINAL SCORE:", model_name, "->", col_part, "=", new_rows[i][col_idx])
-                print("UPDATING SCORE:", model_name, "->", col_part, "=", score)
-                new_rows[i][col_idx] = str(score)
+                print("UPDATING SCORE:", model_name, "->", col_part, "FROM", new_rows[i][col_idx], "TO", str(round(score, 3)))
+                new_rows[i][col_idx] = str(round(score, 3))
                 break
 
     # Write new CSV
@@ -135,11 +187,12 @@ def new_leaderboard_csv():
 
 if __name__ == "__main__":
     # Step 1: Process the zip file
-    zip_path = "/share/pi/nigam/data/medhelm/release/v2/benchmark_output_unredacted_20250531_192811.zip"
-    print("\n====== Step 1: ZIP File Processing ======")
-    zip_results = extract_and_process_zip(zip_path)
-    print("\n📊 Results from ZIP:")
-    print(json.dumps(zip_results, indent=2))
-    json.dump(zip_results, open("../medhelm/refusal_rate_zip.json", "w"))
+    # zip_path = "/share/pi/nigam/data/medhelm/release/v2/benchmark_output_unredacted_20250531_192811.zip"
+    # print("\n====== Step 1: ZIP File Processing ======")
+    # zip_results = extract_and_process_zip(zip_path)
+    # print("\n📊 Results from ZIP:")
+    # print(json.dumps(zip_results, indent=2))
+    # json.dump(zip_results, open("../medhelm/src/medhelm/refusal_rate_zip.json", "w"))
 
-    new_leaderboard_csv()
+    # new_leaderboard_csv()
+    new_win_rate_column('../medhelm/data/leaderboard.csv', '../medhelm/data/leaderboard_without_refusals_win_rates2.csv')
