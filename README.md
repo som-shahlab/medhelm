@@ -25,23 +25,19 @@ pip install -e .
 1. Heatmap
 
 ```bash
-bash scripts/create_heatmap.sh
+bash scripts/plots/1_create_heatmaps.sh
 ```
 
-2. Taxonomy Coverage
+2. Cost vs Win Rate
 
 ```bash
-python3 scripts/create_taxonomy_coverage.py
+bash scripts/plots/2_create_cost_plot.sh
 ```
 
-4. Cost vs Win Rate
+## Generate Tables
+
+1. Win rate table
 
 ```bash
-bash scripts/create_cost_plots.sh
-```
-
-4. Open-ended Box Plots
-
-```bash
-bash scripts/create_open_ended_box_plots.sh
+bash scripts/tables/1_win_rate_table.sh
 ```

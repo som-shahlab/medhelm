@@ -2,15 +2,15 @@
 """
 plot_win_rate_table.py
 ------------------
-Benchmark-wide leaderboard on the raw 0–1 scale, but ranking by
+Benchmark-wide leaderboard on the raw 0-1 scale, but ranking by
 pairwise win rates instead of "best-on-benchmark" counts.
 
 For each model we now report
-  • win_rate  – mean of pairwise win rates vs every other model
+  • win_rate  - mean of pairwise win rates vs every other model
                 (taken directly from the "Mean win rate" column in the CSV)
-  • win_sd    – SD of those pairwise win rates
-  • macro_avg – mean score across all benchmarks
-  • sd        – SD of those scores
+  • win_sd    - SD of those pairwise win rates
+  • macro_avg - mean score across all benchmarks
+  • sd        - SD of those scores
 """
 import sys, re
 import argparse
@@ -23,9 +23,9 @@ def clean(col):
     return re.sub(r"\s+", " ", col.split(" - ", 1)[0]).strip()
 
 def rescale_1_to_5(series: pd.Series) -> pd.Series:
-    """Detect 1–5 Likert columns and rescale to 0-1."""
+    """Detect 1-5 Likert columns and rescale to 0-1."""
     if series.dropna().between(0, 1).all():
-        return series               # already 0–1
+        return series               # already 0-1
     if series.dropna().between(1, 5).all():
         return (series - 1) / 4.0   # Likert → true 0-1 range
     return series                   # leave other ranges unchanged
@@ -41,7 +41,7 @@ def main(csv_path, output_path=None):
 
     score_cols = [c for c in df.columns if c not in ("Model", "Mean win rate")]
 
-    # rescale 1–5 → 0–1 where needed
+    # rescale 1-5 → 0-1 where needed
     for col in score_cols:
         df[col] = rescale_1_to_5(df[col])
 
@@ -96,8 +96,8 @@ def main(csv_path, output_path=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate benchmark leaderboard from CSV data")
-    parser.add_argument("input", help="Input CSV file path")
-    parser.add_argument("output", help="Output LaTeX file path (default: input file with .tex extension)")
+    parser.add_argument("--input", help="Input CSV file path")
+    parser.add_argument("--output", help="Output LaTeX file path (default: input file with .tex extension)")
     
     args = parser.parse_args()
     main(args.input, args.output)
