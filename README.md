@@ -34,7 +34,7 @@ bash scripts/plots/1_create_heatmaps.sh
 bash scripts/plots/2_create_cost_plot.sh
 ```
 
-## Generate Tables
+## 📋 Generate Tables
 
 1. Win rate table
 
