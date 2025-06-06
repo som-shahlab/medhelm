@@ -5,12 +5,12 @@ cd "$SCRIPT_DIR/$DIR" || { echo "Failed to change directory"; exit 1; }
 
 
 # Construct the log file name
-LOG_FILE="../../logs/win_rate_table_$(date '+%Y-%m-%d_%H-%M-%S').log"
+LOG_FILE="../../logs/visualize_stats_$(date '+%Y-%m-%d_%H-%M-%S').log"
 mkdir -p ../../logs  # Ensure the logs directory exists
 exec > >(tee -a "$LOG_FILE") 2>&1
 
-mkdir ../../tables
+mkdir ../../plots
 
-python3 ../../src/medhelm/tables/1_win_rate_table.py \
-    --input ../../data/leaderboard.csv \
-    --output ../../tables/leaderboard_results.tex
+python3 ../../src/medhelm/plots/3_visualize_stats.py \
+    --stats_dir ../../data/stats/ \
+    --output_dir ../../plots/

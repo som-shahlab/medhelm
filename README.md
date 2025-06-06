@@ -34,6 +34,12 @@ bash scripts/plots/1_create_heatmaps.sh
 bash scripts/plots/2_create_cost_plot.sh
 ```
 
+3. LLM-Judge Stats
+
+```bash
+bash scripts/plots/3_create_stats_plot.sh
+```
+
 ## 📋 Generate Tables
 
 1. Win rate table
