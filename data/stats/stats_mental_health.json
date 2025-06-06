@@ -1,0 +1,1 @@
+{"before_filtering": {"mean": 4.654, "median": 4.889, "std_dev": 0.474, "n_examples": 67.0}, "after_filtering_bad": {"mean": 0, "median": 0, "std_dev": 0, "n_examples": 0.0}, "after_filtering_good": {"mean": 4.654, "median": 4.889, "std_dev": 0.474, "n_examples": 67.0}, "after_filtering_double_flagged": {"mean": 4.654, "median": 4.889, "std_dev": 0.474, "n_examples": 67.0}}
