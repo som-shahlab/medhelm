@@ -106,7 +106,7 @@ def find_and_process_files(root_path: str) -> Dict:
 
 
 def main():
-    root_path = "/share/pi/nigam/users/aunell/medhelm/data/benchmark_output/runs"
+    root_path = "../medhelm/data/benchmark_output/runs"
     results = find_and_process_files(root_path)
 
     print("\nPer-file Statistics:")
