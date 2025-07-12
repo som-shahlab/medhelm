@@ -1,0 +1,10 @@
+Model,aci_bench,chw_care_plan,dischargeme,"med_dialog,subset=healthcaremagic","med_dialog,subset=icliniq",medalign,medi_qa,medication_qa,mental_health,mimic_bhc,mimic_rrs,mtsamples_procedures,mtsamples_replicate,starr_patient_instructions
+stanfordhealthcare_claude-3-5-sonnet-20241022,4.612,4.960,3.760,4.290,4.167,4.183,4.726,4.648,4.969,4.018,4.479,4.029,4.379,3.740
+stanfordhealthcare_claude-3-7-sonnet-20250219,4.748,4.961,3.699,4.406,4.255,4.115,4.773,4.691,4.965,3.934,4.526,4.169,4.450,3.601
+stanfordhealthcare_deepseek-r1,4.707,4.926,4.246,4.589,4.431,4.027,4.777,4.631,4.953,3.786,4.694,4.299,4.602,4.715
+stanfordhealthcare_gemini-1.5-pro-001,4.592,4.916,3.576,3.931,3.741,3.744,4.332,3.871,4.375,3.474,4.176,2.912,4.392,3.515
+stanfordhealthcare_gemini-2.0-flash-001,4.733,4.951,3.396,4.448,4.293,3.570,4.802,4.493,4.445,3.768,4.249,3.748,4.105,3.321
+stanfordhealthcare_gpt-4o-2024-05-13,4.626,4.975,3.475,4.485,4.281,3.761,4.703,4.525,4.524,3.926,4.466,4.046,4.311,3.564
+stanfordhealthcare_gpt-4o-mini-2024-07-18,4.478,4.958,3.601,4.338,4.225,3.509,4.662,4.447,4.549,3.715,4.459,4.024,4.281,3.564
+stanfordhealthcare_llama-3.3-70b-instruct,4.236,4.929,3.490,4.294,4.134,3.514,4.731,4.568,4.211,3.639,4.251,3.931,4.136,3.514
+stanfordhealthcare_o3-mini-2025-01-31,4.637,4.953,4.250,4.371,4.287,3.877,4.614,4.358,4.934,3.728,4.580,4.313,4.644,4.513
