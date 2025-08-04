@@ -539,5 +539,5 @@ def main():
 
 if __name__ == "__main__":
     # If no command line arguments, use current directory
-    directory = "/share/pi/nigam/users/aunell/medhelm/judge_ablations"
+    directory = "../medhelm/judge_ablations"
     analyze_leaderboard_rankings(directory)

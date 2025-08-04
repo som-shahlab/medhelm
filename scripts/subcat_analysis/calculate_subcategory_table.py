@@ -39,4 +39,4 @@ def extract_dataset_info(txt_path, json_out_path):
         json.dump(data, out_f, indent=2)
 
 # Example usage
-extract_dataset_info('/share/pi/nigam/users/aunell/medhelm/scripts/example_subcategory.txt', '/share/pi/nigam/users/aunell/medhelm/scripts/example_subcategory_output.json')
+extract_dataset_info('../medhelm/scripts/subcat_analysis/example_subcategory.txt', '../medhelm/scripts/subcat_analysis/example_subcategory_output.json')

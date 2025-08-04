@@ -152,7 +152,7 @@ def find_and_process_files(root_path: str, exclude_judges: List[str], output_fil
 def main():
     root_path = "../medhelm/data/benchmark_output/runs"
     exclude_judges = [] #llama, claude
-    results = find_and_process_files(root_path, exclude_judges=exclude_judges, output_file="/share/pi/nigam/users/aunell/medhelm/judge_ablations/leaderboard_judge_only_claude.csv")
+    results = find_and_process_files(root_path, exclude_judges=exclude_judges, output_file="../medhelm/judge_ablations/leaderboard_judge_only_claude.csv")
 
     print("\nPer-file Statistics:")
     for filepath, stats in results['per_file'].items():
