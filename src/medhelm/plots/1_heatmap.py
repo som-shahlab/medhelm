@@ -15,6 +15,8 @@ METRIC_INFO = [
     ("EHRSHOT - EM", "EHRSHOT - EM", "Clinical Decision Support"),
     ("HeadQA - EM", "HeadQA - EM", "Clinical Decision Support"),
     ("Medbullets - EM", "Medbullets - EM", "Clinical Decision Support"),
+    ("MedQA - EM", "MedQA - EM", "Clinical Decision Support"),
+    ("MedMCQA - EM", "MedMCQA - EM", "Clinical Decision Support"),
     ("MedAlign - Accuracy", "MedAlign - Jury Score", "Clinical Decision Support"),
     ("ADHD-Behavior - EM", "ADHD-Behavior - EM", "Clinical Decision Support"),
     ("ADHD-MedEffects - EM", "ADHD-MedEffects - EM", "Clinical Decision Support"),
