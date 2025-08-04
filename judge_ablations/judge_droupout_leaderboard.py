@@ -113,16 +113,16 @@ def find_and_process_files(root_path: str, exclude_judges: List[str], output_fil
     models = sorted(model_dataset_scores.keys())
     # breakpoint()
     
-    with open(output_file, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(['Model'] + datasets)
-        for model in models:
-            row = [model]
-            for dataset in datasets:
-                scores = model_dataset_scores[model].get(dataset, [])
-                avg = statistics.mean(scores) if scores else ''
-                row.append(f"{avg:.3f}" if avg != '' else '')
-            writer.writerow(row)
+    # with open(output_file, 'w', newline='') as f:
+    #     writer = csv.writer(f)
+    #     writer.writerow(['Model'] + datasets)
+    #     for model in models:
+    #         row = [model]
+    #         for dataset in datasets:
+    #             scores = model_dataset_scores[model].get(dataset, [])
+    #             avg = statistics.mean(scores) if scores else ''
+    #             row.append(f"{avg:.3f}" if avg != '' else '')
+    #         writer.writerow(row)
 
     # Aggregate across all files per judge-metric
     aggregate_stats = {}
@@ -138,7 +138,6 @@ def find_and_process_files(root_path: str, exclude_judges: List[str], output_fil
 
     # Global (all judges, all metrics)
     total_mean, total_std = calculate_stats(all_scores_flat)
-
     return {
         "per_file": file_stats,
         "aggregate": aggregate_stats,
@@ -152,26 +151,26 @@ def find_and_process_files(root_path: str, exclude_judges: List[str], output_fil
 
 def main():
     root_path = "../medhelm/data/benchmark_output/runs"
-    exclude_judges = ["gpt", "llama"] #llama, claude
+    exclude_judges = [] #llama, claude
     results = find_and_process_files(root_path, exclude_judges=exclude_judges, output_file="/share/pi/nigam/users/aunell/medhelm/judge_ablations/leaderboard_judge_only_claude.csv")
 
-    # print("\nPer-file Statistics:")
-    # for filepath, stats in results['per_file'].items():
-    #     print(f"\n{filepath}")
-    #     print(f"Mean: {stats['mean']:.3f}, Std: {stats['std']:.3f}")
-    #     for (judge, metric), (mean, std) in stats["per_judge_metric_stats"].items():
-    #         print(f"  {judge}:{metric} -> Mean = {mean:.3f}, Std = {std:.3f}")
+    print("\nPer-file Statistics:")
+    for filepath, stats in results['per_file'].items():
+        print(f"\n{filepath}")
+        print(f"Mean: {stats['mean']:.3f}, Std: {stats['std']:.3f}")
+        for (judge, metric), (mean, std) in stats["per_judge_metric_stats"].items():
+            print(f"  {judge}:{metric} -> Mean = {mean:.3f}, Std = {std:.3f}")
 
-    # print("\nAggregate Statistics (Per Judge and Metric):")
-    # for judge, metric_stats in results["aggregate"].items():
-    #     print(f"\nJudge: {judge}")
-    #     for metric, stats in metric_stats.items():
-    #         print(f"  {metric}: Mean = {stats['mean']:.3f}, Std = {stats['std']:.3f}, N = {stats['n_samples']}")
+    print("\nAggregate Statistics (Per Judge and Metric):")
+    for judge, metric_stats in results["aggregate"].items():
+        print(f"\nJudge: {judge}")
+        for metric, stats in metric_stats.items():
+            print(f"  {metric}: Mean = {stats['mean']:.3f}, Std = {stats['std']:.3f}, N = {stats['n_samples']}")
 
-    # print("\nOverall Statistics (All Scores Combined):")
-    # print(f"Mean: {results['total_scores']['mean']:.3f}")
-    # print(f"Std: {results['total_scores']['std']:.3f}")
-    # print(f"N: {results['total_scores']['n_samples']}")
+    print("\nOverall Statistics (All Scores Combined):")
+    print(f"Mean: {results['total_scores']['mean']:.3f}")
+    print(f"Std: {results['total_scores']['std']:.3f}")
+    print(f"N: {results['total_scores']['n_samples']}")
 
 
 if __name__ == "__main__":
