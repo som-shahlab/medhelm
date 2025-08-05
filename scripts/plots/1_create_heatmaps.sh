@@ -14,11 +14,13 @@ mkdir ../../plots
 
 python3 ../../src/medhelm/plots/1_heatmap.py \
     --leaderboard_path ../../data/leaderboard.csv \
-    --output_path ../../plots/heatmap.png
 
 # Category heatmap
 
 python3 ../../src/medhelm/plots/1_heatmap.py \
     --leaderboard_path ../../data/leaderboard.csv \
-    --output_path ../../plots/heatmap_aggregated.png \
-    --aggregated
+    --aggregated Category
+
+python3 ../../src/medhelm/plots/1_heatmap.py \
+    --leaderboard_path ../../data/leaderboard.csv \
+    --aggregated Subcategory

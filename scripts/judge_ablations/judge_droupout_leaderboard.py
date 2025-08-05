@@ -111,18 +111,7 @@ def find_and_process_files(root_path: str, exclude_judges: List[str], output_fil
     # Create leaderboard CSV
     datasets = sorted(set(dataset for scores in model_dataset_scores.values() for dataset in scores.keys()))
     models = sorted(model_dataset_scores.keys())
-    # breakpoint()
-    
-    # with open(output_file, 'w', newline='') as f:
-    #     writer = csv.writer(f)
-    #     writer.writerow(['Model'] + datasets)
-    #     for model in models:
-    #         row = [model]
-    #         for dataset in datasets:
-    #             scores = model_dataset_scores[model].get(dataset, [])
-    #             avg = statistics.mean(scores) if scores else ''
-    #             row.append(f"{avg:.3f}" if avg != '' else '')
-    #         writer.writerow(row)
+
 
     # Aggregate across all files per judge-metric
     aggregate_stats = {}
@@ -175,9 +164,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-#todo
-#find the model x dataset score to replicate leaderboard by 1) averaging across judges vs 2) looking at single judge
-
-#
