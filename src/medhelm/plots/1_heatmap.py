@@ -170,7 +170,7 @@ def plot_category_heatmap(df_path, output_path, aggregated=False, transpose=Fals
         heatmap_df,
         annot=True,
         fmt=".2f",
-        cmap="RdYlGn",
+        cmap="viridis",
         cbar_kws={"ticks": bounds},
         linewidths=0.5,
         linecolor='gray',
