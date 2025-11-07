@@ -171,7 +171,9 @@ def plot_category_heatmap(df_path, output_path, aggregated=False, transpose=Fals
         annot=True,
         fmt=".2f",
         cmap="viridis",
-        cbar_kws={"ticks": bounds},
+        vmin=0,
+        vmax=1,
+        cbar_kws={"ticks": np.linspace(0, 1, 11)},
         linewidths=0.5,
         linecolor='gray',
         annot_kws={"fontsize": 7}
