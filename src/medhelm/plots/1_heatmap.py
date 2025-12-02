@@ -5,6 +5,14 @@ import numpy as np
 import argparse
 
 
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
+
+# Set the font to a safe, standard sans-serif font (Arial or Helvetica)
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['font.sans-serif'] = ['Arial', 'Helvetica', 'DejaVu Sans']
+
+
 # Define all tasks as a compact list of tuples: (original column, display name, category)
 METRIC_INFO = [
     ("MedCalc-Bench - MedCalc Accuracy", "MedCalc-Bench - MedCalc Accuracy", "Clinical Decision Support", "Supporting Diagnostic Decisions"),
@@ -182,8 +190,13 @@ def plot_category_heatmap(df_path, output_path, aggregated=False, transpose=Fals
     plt.title(title, fontsize=14)
     plt.xticks(rotation=30, ha='right', fontsize=8)
     plt.tight_layout()
-    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+    plt.savefig(output_path, dpi=500, bbox_inches='tight')
     print(f"Plot saved as '{output_path}'")
+    
+    output_path_pdf = output_path.replace(".png", ".pdf")
+    plt.savefig(output_path_pdf, dpi=500, bbox_inches='tight')
+    print(f"Plot saved as '{output_path_pdf}'")
+    
     return plt.gcf(), top_bottom_dict
 
 

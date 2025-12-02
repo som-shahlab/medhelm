@@ -5,6 +5,14 @@ import matplotlib.pyplot as plt
 from medhelm.utils.constants import BENCHMARKS, BENCHMARK_NAME_MAPPING, MODEL_NAME_MAPPING
 
 
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
+
+# Set the font to a safe, standard sans-serif font (Arial or Helvetica)
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['font.sans-serif'] = ['Arial', 'Helvetica', 'DejaVu Sans']
+
+
 def main(
     costs_file: str,
     leaderboard_file: str,
@@ -129,8 +137,12 @@ def main(
     plt.xlim(merged_data['Aggregated Cost'].min() * 0.9, merged_data['Aggregated Cost'].max() * 1.1)
     plt.ylim(merged_data['Mean Win Rate'].min() * 0.9, merged_data['Mean Win Rate'].max() * 1.1)
 
-    plt.savefig(output_file)
-    print(f"Plot saved to {output_file}")
+    plt.savefig(output_file, dpi=500, bbox_inches='tight')
+    print(f"Plot saved as '{output_file}'")
+    
+    output_file_pdf = output_file.replace(".png", ".pdf")
+    plt.savefig(output_file_pdf, dpi=500, bbox_inches='tight')
+    print(f"Plot saved as '{output_file_pdf}'")
 
 
 if __name__ == "__main__":
