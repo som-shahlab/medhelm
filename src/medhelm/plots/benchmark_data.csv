@@ -1,0 +1,60 @@
+Dataset_Group,Dataset,Subcategory,Questions,Unique_Patients
+MEDHELM,MedCalc-Bench,Supporting Diagnostic Decisions,1000,1000
+MEDHELM,CLEAR,Planning Treatments,1022,1022
+MEDHELM,MTSamples,Planning Treatments,427,0
+MEDHELM,Medec,Planning Treatments,597,0
+MEDHELM,EHRSHOT,Predicting Patient Risks And Outcomes,1000,1000
+MEDHELM,HeadQA,Providing Clinical Knowledge Support,1000,0
+MEDHELM,Medbullets,Providing Clinical Knowledge Support,308,0
+MEDHELM,MedQA,Providing Clinical Knowledge Support,1000,0
+MEDHELM,MedMCQA,Providing Clinical Knowledge Support,1000,0
+MEDHELM,MedAlign,Providing Clinical Knowledge Support,149,149
+MEDHELM,ADHD-Behavior,Providing Clinical Knowledge Support,423,423
+MEDHELM,ADHD-MedEffects,Providing Clinical Knowledge Support,915,915
+MEDHELM,DischargeMe,Documenting Patient Visits,1000,1000
+MEDHELM,ACI-Bench,Documenting Patient Visits,120,120
+MEDHELM,MTSamples Procedures,Recording Procedures,128,0
+MEDHELM,MIMIC-RRS,Documenting Diagnostic Reports,1000,1000
+MEDHELM,MIMIC-BHC,Documenting Patient Visits,1000,1000
+MEDHELM,NoteExtract,Documenting Care Plans,487,487
+MEDHELM,MedicationQA,Providing Patient Education Resources,689,0
+MEDHELM,PatientInstruct,Delivering Personalized Care Instructions,361,361
+MEDHELM,MedDialog,Patient-Provider Messaging,1000,0
+MEDHELM,MedConfInfo,Patient-Provider Messaging,1000,1000
+MEDHELM,MEDIQA-QA,Enhancing Patient Understanding And Accessibility In Health,150,0
+MEDHELM,MentalHealth,Facilitating Patient Engagement And Support,67,0
+MEDHELM,PrivacyDetection,Patient-Provider Messaging,300,0
+MEDHELM,ProxySender,Patient-Provider Messaging,300,0
+MEDHELM,PubMedQA,Conducting Literature Research,1000,0
+MEDHELM,EHRSQL,Analyzing Clinical Research Data,1000,0
+MEDHELM,BMT-Status,Recording Research Processes,220,220
+MEDHELM,RaceBias,Ensuring Clinical Research Quality,167,0
+MEDHELM,N2C2-CT,Managing Research Enrollment,86,86
+MEDHELM,MedHallu,Ensuring Clinical Research Quality,1000,0
+MEDHELM,HospiceReferral,Scheduling Resources And Staff,1000,1000
+MEDHELM,MIMIC-IV Billing Code,Overseeing Financial Activities,1000,1000
+MEDHELM,ClinicReferral,Organizing Workflow Processes,326,326
+MEDHELM,CDI-QA,Care Coordination And Planning,1000,1000
+MEDHELM,ENT-Referral,Care Coordination And Planning,1000,1000
+OTHER,First DoNoHarm,Planning Treatments,100,100
+OTHER,SCT Bench,Supporting Diagnostic Decisions,750,0
+OTHER,CPC Bench,Supporting Diagnostic Decisions,2437,2437
+OTHER,CPC Bench,Planning Treatments,812,812
+OTHER,CPC Bench,Providing Clinical Knowledge Support,1625,1625
+OTHER,CPC Bench,Analyzing Clinical Research Data,812,812
+OTHER,CPC Bench,Conducting Literature Research,812,812
+OTHER,CPC Bench,Documenting Diagnostic Reports,812,812
+OTHER,CPC Bench,Providing Patient Education Resources,813,813
+OTHER,HealthBench,Care Coordination And Planning,714,0
+OTHER,HealthBench,Organizing Workflow Processes,714,0
+OTHER,HealthBench,Providing Patient Education Resources,714,0
+OTHER,HealthBench,Documenting Diagnostic Reports,714,0
+OTHER,HealthBench,Patient-Provider Messaging,714,0
+OTHER,HealthBench,Supporting Diagnostic Decisions,715,0
+OTHER,HealthBench,Providing Clinical Knowledge Support,715,0
+OTHER,MedAgentBench,Supporting Diagnostic Decisions,85,28
+OTHER,MedAgentBench,Documenting Patient Visits,43,14
+OTHER,MedAgentBench,Documenting Diagnostic Reports,43,14
+OTHER,MedAgentBench,Predicting Patient Risks And Outcomes,43,14
+OTHER,MedAgentBench,Care Coordination And Planning,43,15
+OTHER,MedAgentBench,Planning Treatments,43,15
